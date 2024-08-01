@@ -81,8 +81,8 @@
 .modal {
   display: flex;
   flex-direction: column; /* Permite apilar el botón y la imagen */
-  justify-content: center;
-  align-items: center;
+  justify-content: center; /* Centra el contenido verticalmente */
+  align-items: center; /* Centra el contenido horizontalmente */
   position: fixed;
   top: 0;
   left: 0;
@@ -91,6 +91,8 @@
   background-color: rgba(0, 0, 0, 0.793);
   z-index: 1000;
   transition: background-color 0.3s ease; /* Transición suave para el cambio de fondo */
+  margin: 0; /* Asegúrate de que no haya margen */
+  padding: 0; /* Asegúrate de que no haya padding */
 }
 
 .modal-black {
@@ -100,13 +102,20 @@
 .modal-content {
   max-width: 99%;
   max-height: 98%;
+  border: none;
   object-fit: contain; /* Mantiene la proporción de la imagen sin deformarla */
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, max-width 0.3s ease, max-height 0.3s ease;
+  z-index: 1001; /* Asegura que la imagen esté siempre por encima del fondo */
+  margin: 0; /* Asegúrate de que no haya margen */
+  padding: 0; /* Asegúrate de que no haya padding */
 }
-.full-image{
+
+.full-image {
   width: 130%;
+  max-width: none; /* Asegura que la imagen no tenga un límite de tamaño */
+  max-height: none; /* Asegura que la imagen no tenga un límite de tamaño */
 }
 
 

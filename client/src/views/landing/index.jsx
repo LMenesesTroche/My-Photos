@@ -137,7 +137,7 @@ const Landing = () => {
         >
           {showButtons && (
             <>
-              <span className="close">&times;</span>
+              <span className="close" onClick={handleCloseModal}>&times;</span>
               {!isLargeScreen && (
                 <button className="rotate-button" onClick={handleRotatePhoto}>
                   Rotate
@@ -149,15 +149,15 @@ const Landing = () => {
               <button className="next-button" onClick={handleNextPhoto}>
                 &gt; {/* Flecha derecha */}
               </button>
-              <img
-                className={imageClass}
-                src={selectedPhoto.high_res_url} // Usa la URL de alta resolución
-                alt="Expanded"
-                style={{ transform: `rotate(${rotation}deg)` }}
-                onClick={toggleButtonsAndBackground} // Toggle buttons and background on image click
-              />
             </>
           )}
+          <img
+            className={imageClass}
+            src={selectedPhoto.high_res_url} // Usa la URL de alta resolución
+            alt="Expanded"
+            style={{ transform: `rotate(${rotation}deg)` }}
+            onClick={toggleButtonsAndBackground} // Toggle buttons and background on image click
+          />
         </div>
       )}
     </div>
