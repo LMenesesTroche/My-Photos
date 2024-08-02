@@ -7,5 +7,4 @@
 4.-Pasarela de pagos paypal
 5.-Comodo al usuario (Reactive)
 6.-Poder acomodar las imagenes
-!arreglar error al agrandar foto
 */
