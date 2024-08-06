@@ -3,7 +3,7 @@ import React from "react";
 import "./login.css";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
-import { register } from "../../redux/actions/auth";
+// import { register } from "../../redux/actions/auth";
 
 const Login = () => {
   const dispatch = useDispatch();

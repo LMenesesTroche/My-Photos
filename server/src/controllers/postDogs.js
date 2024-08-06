@@ -1,4 +1,4 @@
-const { Dog, Temperaments } = require("../DB");
+const { Dog, Temperaments } = require("../db");
 const { Sequelize } = require('sequelize');
 
 

@@ -25,7 +25,7 @@ const Landing = () => {
   useEffect(() => {
     const fetchPhotos = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/photos");
+        const response = await axios.get("http://localhost:3001/photos");
         setPhotos(response.data);
       } catch (error) {
         console.error("Error fetching images:", error);

@@ -1,5 +1,5 @@
-import rutaBack from "./rutaBack"
-import axios from "axios";
+// import rutaBack from "./rutaBack"
+// import axios from "axios";
 
 
 // export const register = (formData,t) => async (dispatch) => {

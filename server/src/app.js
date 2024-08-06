@@ -1,35 +1,35 @@
-const express = require('express');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
-const morgan = require('morgan');
-const routes = require('./routes/index.js');
-//All of this, copy paste
-require('./DB.js');
-
+const express = require("express");
+const morgan = require("morgan");
+const router = require("./routes/index");
 const server = express();
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
 
-server.name = 'API';
+const whitelist = [
+  "http://localhost:5173",
+];
 
-server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
-server.use(bodyParser.json({ limit: '50mb' }));
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true 
+};
+
+server.name = "API";
+server.use(morgan("dev"));
+server.use(express.json());
 server.use(cookieParser());
-server.use(morgan('dev'));
 server.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:5173'); // update to match the domain you will make the request from
-  res.header('Access-Control-Allow-Credentials', 'true');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-  next();
+  cors(corsOptions)(req, res, next);
 });
-
-server.use('/', routes);
-
-// Error catching endware.
-server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
-  const status = err.status || 500;
-  const message = err.message || err;
-  console.error(err);
-  res.status(status).send(message);
-});
+server.use(router);
 
 module.exports = server;
+
+
+

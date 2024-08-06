@@ -1,12 +1,12 @@
-//This is the routes component
-const express = require('express');
+const { Router } = require("express");
+const router = Router();
 
-const postDogs = require('../controllers/postDogs');
+const userRoutes = require("./userRoutes");
+const photosRoutes = require("./photosRoutes");
 
-const myRouter = express.Router();
+router.use("/users",userRoutes);
 
-myRouter.post('/dogs', postDogs);
+router.use("/photos",photosRoutes);
 
-module.exports = myRouter;
+module.exports = router;
 
-//hola
