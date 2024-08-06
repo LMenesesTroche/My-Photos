@@ -19,7 +19,6 @@ const corsOptions = {
   },
   credentials: true 
 };
-
 server.name = "API";
 server.use(morgan("dev"));
 server.use(express.json());
