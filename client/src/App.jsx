@@ -5,8 +5,22 @@ import Navbar from "./components/nav";
 import Footer from "./components/footer";
 import Upload from "./views/upload";
 import Login from "./views/login";
+import { useEffect } from "react";
+import { gapi } from "gapi-script";
+const clientId =
+  "913811512322-mif9shii3k76dkvt2hjepmj4ks934nh7.apps.googleusercontent.com";
 
 function App() {
+
+  useEffect(()=>{
+    function start(){
+      gapi.client.init({
+        clientId: clientId,
+        scope:""
+      })
+    };
+    gapi.load("client:auth2", start)
+  })
   return (
     <div className="App">
       <Navbar />
