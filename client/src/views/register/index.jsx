@@ -1,17 +1,14 @@
 // src/components/Navbar.jsx
 import React from "react";
-import "./login.css";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
-// import { register } from "../../redux/actions/auth";
-
-const Login = () => {
+import { register } from "../../redux/actions/auth";
+const Register = () => {
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
-    gmail: "",
+    email: "",
     password: "",
   });
 
@@ -25,22 +22,21 @@ const Login = () => {
   };
 
   const handleSubmit = (e) => {
-    // e.preventDefault();
-    console.log(formData);
+    e.preventDefault();
+    // console.log(formData);
     dispatch(register(formData));
-    window.alert("Submited!");
   };
 
   return (
     <div>
       <form onSubmit={handleSubmit} className="form-container">
-        <h1>LOGIN</h1>
-        <label>Gmail</label>
+        <h1>REGISTER</h1>
+        <label>Email</label>
         <input
-          value={formData.gmail}
+          value={formData.email}
           onChange={handleChange}
-          name="gmail"
-          type="gmail"
+          name="email"
+          type="email"
         ></input>
         <label>Password</label>
         <input
@@ -49,11 +45,11 @@ const Login = () => {
           name="password"
           type="password"
         ></input>
-        <Link to="/register">Register</Link>
-        <button type="submit">LOGIN</button>
+        <Link to="/login">Login</Link>
+        <button type="submit">REGISTER</button>
       </form>
     </div>
   );
 };
 
-export default Login;
+export default Register;

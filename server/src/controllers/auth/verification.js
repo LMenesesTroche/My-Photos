@@ -1,16 +1,17 @@
-const { user } = require("../../db.js");
+const { Users } = require("../../db");
+const { sequelize } = require("../../db");
 
 const verifyAccount = async (email, password) => {
-    const theUser = await user.findOne({
+    const theUser = await Users.findOne({
         where: { email }
     });
 
     if(!theUser) throw new Error("No account");
 
     if(theUser.password === password){
-        return "Login succesfull"
+        return {message:"Login succesfully"}
     }else{
-        return "Incorrect password"
+        return {message:"Incorrect password"}
     }
 };
 

@@ -8,7 +8,7 @@ async function createUser(email, password) {
   });
 
   if (emailOnUse) {
-    throw new Error("email already on use");
+    return {message:"Email already on use"}
   } else {
     const createUserDb = await Users.create({
       email,

@@ -5,6 +5,8 @@ import Navbar from "./components/nav";
 import Footer from "./components/footer";
 import Upload from "./views/upload";
 import Login from "./views/login";
+import Register from "./views/register";
+
 import { useEffect } from "react";
 import { gapi } from "gapi-script";
 const clientId =
@@ -28,6 +30,7 @@ function App() {
         <Route path="/upload" element={<Upload />} />
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
       <Footer />
     </div>
