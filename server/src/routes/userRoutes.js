@@ -4,7 +4,7 @@ const createUser = require("../controllers/users/createUser");
 
 const userRoutes = Router();
 
-userRoutes.post("/hola", async (req, res) => {
+userRoutes.post("/create", async (req, res) => {
     try {
         const { email, password } = req.body;
 
