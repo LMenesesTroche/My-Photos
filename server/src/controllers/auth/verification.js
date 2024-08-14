@@ -6,12 +6,12 @@ const verifyAccount = async (email, password) => {
         where: { email }
     });
 
-    if(!theUser) throw new Error("No account");
+    if(!theUser) return {error:"The user does not exist"};
 
     if(theUser.password === password){
-        return {message:"Login succesfully"}
+        return {message:"Login succesfully",user:{email,password}}
     }else{
-        return {message:"Incorrect password"}
+        return {error:"Incorrect password"}
     }
 };
 

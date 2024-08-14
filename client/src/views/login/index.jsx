@@ -4,6 +4,7 @@ import "./login.css";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { login } from "../../redux/actions/auth";
 
 // import { register } from "../../redux/actions/auth";
 
@@ -11,7 +12,7 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
-    gmail: "",
+    email: "",
     password: "",
   });
 
@@ -25,22 +26,20 @@ const Login = () => {
   };
 
   const handleSubmit = (e) => {
-    // e.preventDefault();
-    console.log(formData);
-    dispatch(register(formData));
-    window.alert("Submited!");
+    e.preventDefault();
+    dispatch(login(formData));
   };
 
   return (
     <div>
       <form onSubmit={handleSubmit} className="form-container">
         <h1>LOGIN</h1>
-        <label>Gmail</label>
+        <label>email</label>
         <input
-          value={formData.gmail}
+          value={formData.email}
           onChange={handleChange}
-          name="gmail"
-          type="gmail"
+          name="email"
+          type="email"
         ></input>
         <label>Password</label>
         <input

@@ -1,5 +1,6 @@
 import "./Landing.css"; // Asegúrate de importar el archivo CSS
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import useMedia from "use-media";
 import "react-lazy-load-image-component/src/effects/blur.css"; // Efecto de desenfoque al cargar
@@ -13,7 +14,9 @@ const Landing = () => {
   const [rotateRight, setRotateRight] = useState(true); // Estado para rotación intercalada
   const [showButtons, setShowButtons] = useState(true); // Estado para mostrar/ocultar botones
   const [imageClass, setImageClass] = useState("modal-content"); // Estado para manejar la clase de imagen
+  const user = useSelector((state) => state.auth.user);
 
+  console.log(user)
   // Hook para determinar si la pantalla es grande (por ejemplo, >= 1024px)
   const isLargeScreen = useMedia({ minWidth: "1024px" });
 
@@ -110,6 +113,7 @@ const Landing = () => {
         <div className="userText">
           <h1 className="userName">{userInfo.name}</h1>
           <h2 className="works">Selected Work</h2>
+          {user.email ? <h1>esta logeado</h1> :""}
         </div>
         <div className="imageSection">
           <img src={userInfo.img} className="porfilePhoto" alt="Profile" />
