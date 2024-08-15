@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./upload.css";
 
@@ -6,9 +6,23 @@ export default function Upload() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
+  const [localStorageValue, setLocalStorageValue] = useState(localStorage.getItem("myLocalStorageKey") || true);
+
+  useEffect(() => {
+    const storedValue = localStorage.getItem("myLocalStorageKey");
+    if (storedValue !== null) {
+      setLocalStorageValue(storedValue === "true");
+    }
+  }, []);
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
+  };
+
+  const handleClick = () => {
+    const newValue = !localStorageValue;
+    setLocalStorageValue(newValue);
+    localStorage.setItem("myLocalStorageKey", newValue.toString());
   };
 
   const handleUpload = async () => {
@@ -39,6 +53,7 @@ export default function Upload() {
     <div className="container">
       <h1>Upload your photo</h1>
       <input type="file" onChange={handleFileChange} />
+      <button onClick={handleClick} >Local Storage: {localStorageValue ? "True" : "False"}</button>
       <button onClick={handleUpload} disabled={!selectedFile || uploading}>
         {uploading ? "Uploading..." : "Upload"}
       </button>

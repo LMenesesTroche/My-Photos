@@ -7,12 +7,12 @@ export const register = (formData) => async (dispatch) => {
   const endpoint = `${rutaBack}/users/create`;
   try {
     const response = await axios.post(endpoint, formData);
-    if(response.data.id){
-      window.alert("Register succesfully")  
-    }else{
-      window.alert(response.data.message)
+    if (response.data.id) {
+      window.alert("Register succesfully");
+    } else {
+      window.alert(response.data.message);
     }
-    console.log(response.data)
+    console.log(response.data);
   } catch (error) {
     console.log(error);
   }
@@ -24,12 +24,15 @@ export const login = (formData) => async (dispatch) => {
   try {
     const response = await axios.post(endpoint, formData);
 
-    if(response.data.message){
-      window.alert(response.data.message)  
-      console.log(response.data.user)
+    if (response.data.message) {
+      window.alert(response.data.message);
+      
+      // Guardamos el token en localStorage
+      localStorage.setItem("token", response.data.token);
+
       dispatch({ type: LOGIN_SUCCESS, payload: response.data.user });
-    }else{
-      window.alert(response.data.error)
+    } else {
+      window.alert(response.data.error);
     }
   } catch (error) {
     console.log(error);

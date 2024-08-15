@@ -15,8 +15,21 @@ const Landing = () => {
   const [showButtons, setShowButtons] = useState(true); // Estado para mostrar/ocultar botones
   const [imageClass, setImageClass] = useState("modal-content"); // Estado para manejar la clase de imagen
   const user = useSelector((state) => state.auth.user);
+  const token = localStorage.getItem("token");
+  const [isLoged, setIsLoged] = useState(false);
 
-  console.log(user)
+
+  if (token) {
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  }
+
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsLoged(true)
+    }
+  }, []);
   // Hook para determinar si la pantalla es grande (por ejemplo, >= 1024px)
   const isLargeScreen = useMedia({ minWidth: "1024px" });
 
@@ -113,7 +126,7 @@ const Landing = () => {
         <div className="userText">
           <h1 className="userName">{userInfo.name}</h1>
           <h2 className="works">Selected Work</h2>
-          {user.email ? <h1>esta logeado</h1> :""}
+          {isLoged ? <h1>esta logeado</h1> :""}
         </div>
         <div className="imageSection">
           <img src={userInfo.img} className="porfilePhoto" alt="Profile" />
