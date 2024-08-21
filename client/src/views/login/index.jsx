@@ -11,7 +11,6 @@ import { login } from "../../redux/actions/auth";
 const Login = () => {
   const dispatch = useDispatch();
 
-
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -31,9 +30,16 @@ const Login = () => {
     dispatch(login(formData));
   };
 
+  const handleLogout = () => {
+    // dispatch(logout());
+    localStorage.removeItem('token');
+
+    window.alert("Log out succesfully");
+  };
+
   return (
     <div>
-      <form onSubmit={handleSubmit} className="form-container">
+      <form className="form-container">
         <h1>LOGIN</h1>
         <label>email</label>
         <input
@@ -50,7 +56,9 @@ const Login = () => {
           type="password"
         ></input>
         <Link to="/register">Register</Link>
-        <button type="submit">LOGIN</button>
+        <button onClick={handleSubmit}>LOGIN</button>
+        <button onClick={handleLogout}>LOGOUT</button>
+
       </form>
     </div>
   );

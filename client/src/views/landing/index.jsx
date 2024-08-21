@@ -6,6 +6,8 @@ import useMedia from "use-media";
 import "react-lazy-load-image-component/src/effects/blur.css"; // Efecto de desenfoque al cargar
 import { useSwipeable } from "react-swipeable";
 import axios from "axios";
+import { getUserNumber } from "../../redux/actions/auth";
+import { useDispatch } from "react-redux";
 
 const Landing = () => {
   const [photos, setPhotos] = useState([]);
@@ -16,26 +18,32 @@ const Landing = () => {
   const [imageClass, setImageClass] = useState("modal-content"); // Estado para manejar la clase de imagen
   const user = useSelector((state) => state.auth.user);
   const token = localStorage.getItem("token");
-  const [isLoged, setIsLoged] = useState(false);
-
-
-  if (token) {
-    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-  }
-
+  const number = localStorage.getItem("number");
+  const [userName, setUserName] = useState("Not logged yet");
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      setIsLoged(true)
+    if (token) {      
+      // Extraer la información del token
+      const payloadBase64 = token.split('.')[1]; // Obtenemos la segunda parte del token
+      const payload = JSON.parse(atob(payloadBase64)); // Decodificamos el Base64 y parseamos a JSON
+      setUserName(payload.email);
+      console.log("Información contenida en el token:", payload);
+
+      console.log(token)
+      //Verificar que el token sirve
+      dispatch(getUserNumber());
+      console.log("El number",number)
+
     }
-  }, []);
+  }, [token]);
+
   // Hook para determinar si la pantalla es grande (por ejemplo, >= 1024px)
   const isLargeScreen = useMedia({ minWidth: "1024px" });
 
   const userInfo = {
     name: "Lucas Meneses",
-    img: "https://res.cloudinary.com/decbwosgj/image/upload/v1722031509/20240129-_DSC0003_td9yoq.jpg",
+    // img: "https://res.cloudinary.com/decbwosgj/image/upload/v1722031509/20240129-_DSC0003_td9yoq.jpg",
   };
 
   useEffect(() => {
@@ -124,9 +132,8 @@ const Landing = () => {
     <div className="landing-container">
       <div className="userInfo">
         <div className="userText">
-          <h1 className="userName">{userInfo.name}</h1>
+          <h1 className="userName">{userName}</h1>
           <h2 className="works">Selected Work</h2>
-          {isLoged ? <h1>esta logeado</h1> :""}
         </div>
         <div className="imageSection">
           <img src={userInfo.img} className="porfilePhoto" alt="Profile" />
