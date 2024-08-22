@@ -4,7 +4,7 @@ const createUser = require("../controllers/users/createUser");
 const verifyAccount = require("../controllers/auth/verification");
 const authenticateToken = require("../controllers/auth/authenticateToken");
 const getNumber = require("../controllers/users/getNumber");
-
+const findOrCreateUser = require("../controllers/users/findOrCreateUser");
 const userRoutes = Router();
 
 userRoutes.post("/create", async (req, res) => {
@@ -37,6 +37,15 @@ userRoutes.post("/verification", async (req, res) => {
   } catch (error) {
     console.error("Error:", error.message);
     res.status(500).json({ error: error.message });
+  }
+});
+
+userRoutes.post('/api', async (req, res) => {
+  try {
+    const user = await findOrCreateUser(req.body);
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ error: 'Error saving user' });
   }
 });
 

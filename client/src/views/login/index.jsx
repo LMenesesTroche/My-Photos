@@ -6,10 +6,9 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { login } from "../../redux/actions/auth";
 
-// import { register } from "../../redux/actions/auth";
-
 const Login = () => {
   const dispatch = useDispatch();
+
 
   const [formData, setFormData] = useState({
     email: "",

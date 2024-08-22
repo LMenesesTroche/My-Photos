@@ -10,5 +10,7 @@
 
 
 
-? ya tengo hecho el create user
+? ya tengo token y hasheo de contraseñas
+? necesito acabar la auth de terceros 
+!ESTOY VIENDO VIDEO MINUTO 12 DE AUTH0
 */

@@ -28,13 +28,9 @@ const Landing = () => {
       const payloadBase64 = token.split('.')[1]; // Obtenemos la segunda parte del token
       const payload = JSON.parse(atob(payloadBase64)); // Decodificamos el Base64 y parseamos a JSON
       setUserName(payload.email);
-      console.log("Información contenida en el token:", payload);
 
-      console.log(token)
       //Verificar que el token sirve
-      dispatch(getUserNumber());
-      console.log("El number",number)
-
+      // dispatch(getUserNumber());
     }
   }, [token]);
 

@@ -6,7 +6,7 @@ import Footer from "./components/footer";
 import Upload from "./views/upload";
 import Login from "./views/login";
 import Register from "./views/register";
-
+import UserData from "./views/profile/index"
 import { useEffect } from "react";
 import { gapi } from "gapi-script";
 const clientId =
@@ -31,6 +31,8 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/userData" element={<UserData />} />
+
       </Routes>
       <Footer />
     </div>
