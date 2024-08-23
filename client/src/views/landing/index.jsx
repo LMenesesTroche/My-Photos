@@ -128,7 +128,7 @@ const Landing = () => {
     <div className="landing-container">
       <div className="userInfo">
         <div className="userText">
-          <h1 className="userName">{userName}</h1>
+          <h1 className="userName">Lucas Meneses</h1>
           <h2 className="works">Selected Work</h2>
         </div>
         <div className="imageSection">
