@@ -3,14 +3,13 @@
 *Quiero que tenga:
 //1.-Lugar donde mostrar imagenes 
 //2.-Upload facil
-3.-Autenticacion terceros google
+//3.-Autenticacion terceros google
 4.-Pasarela de pagos paypal
 5.-Comodo al usuario (Reactive)
 6.-Poder acomodar las imagenes
 
 
 
-? ya tengo token y hasheo de contraseñas
-? necesito acabar la auth de terceros 
-!ESTOY VIENDO VIDEO MINUTO 12 DE AUTH0
+Ya tengo el login lo que toca ahora es hacer la app segun usuarios y que una vez se autentiquen se habilite
+la opcion de upload
 */
