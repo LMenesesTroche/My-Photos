@@ -19,7 +19,13 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: true,
     },
+    photos:{
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull:true,
+    }
 
-  }, { timestamps: false });
+  }, { 
+    timestamps: false,
+   });
 
 };

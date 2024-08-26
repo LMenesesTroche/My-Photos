@@ -9,7 +9,10 @@
 6.-Poder acomodar las imagenes
 
 
-
 Ya tengo el login lo que toca ahora es hacer la app segun usuarios y que una vez se autentiquen se habilite
 la opcion de upload
+? Necesito
+//1 get photos and name by user id(params)
+2 al hacer upload guardar el link en el modelo del usuario 
+
 */

@@ -1,4 +1,3 @@
-// src/components/Navbar.jsx
 import React, { useEffect } from 'react';
 import { Link } from "react-router-dom";
 import "./nav.css";
@@ -17,7 +16,6 @@ const Navbar = () => {
       if (isAuthenticated && user) {
         try {
           await axios.post(`${rutaBack}/users/api`, user);
-          console.log("User information sent to the backend.");
         } catch (error) {
           console.error("Error saving user:", error);
         }
@@ -40,10 +38,8 @@ const Navbar = () => {
         <Link to="/">Home</Link>
         <Link to="/userData">Profile</Link>
         <Link to="/upload">Upload</Link>
-
-        {isAuthenticated ?  <LogOutButtonAuth0/>:<LoginButtonAuth0/>}
-        
-
+        <Link to="/allUsers">All users</Link>
+        {isAuthenticated ?  <LogOutButtonAuth0/>:<LoginButtonAuth0/>}      
       </div>
     </nav>
   );

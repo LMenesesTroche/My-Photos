@@ -1,55 +1,52 @@
 const { Router } = require("express");
-
-// const createUser = require("../controllers/users/createUser");
-// const verifyAccount = require("../controllers/auth/verification");
-// const authenticateToken = require("../controllers/auth/authenticateToken");
-// const getNumber = require("../controllers/users/getNumber");
-
 const findOrCreateUser = require("../controllers/users/findOrCreateUser");
+const getAllUsers = require("../controllers/users/getAllUsers");
+const getPublicProfileById = require("../controllers/users/getPublicProfileById");
+
 const userRoutes = Router();
 
-// userRoutes.post("/create", async (req, res) => {
-//   try {
-//     const { email, password } = req.body;
-//     if (!email || !password) {
-//       return res.status(400).json({ error: "Missing data" });
-//     }
-
-//     const message = await createUser(email, password);
-
-//     res.status(200).json(message);
-//   } catch (error) {
-//     console.error("Error:", error.message);
-//     res.status(500).json({ error: error.message });
-//   }
-// });
-
-// userRoutes.post("/verification", async (req, res) => {
-//   try {
-//     const { email, password } = req.body;
-
-//     if (!email || !password) {
-//       return res.status(400).json({ message: "Missing data" });
-//     }
-
-//     const message = await verifyAccount(email, password);
-
-//     return res.status(200).json(message);
-//   } catch (error) {
-//     console.error("Error:", error.message);
-//     res.status(500).json({ error: error.message });
-//   }
-// });
-
-userRoutes.post('/api', async (req, res) => {
+userRoutes.post("/api", async (req, res) => {
   try {
+    const { sub } = req.body;
+
+    if(!sub){
+      return res.status(400).json({ error: "Missing data" });
+    }
+
     const user = await findOrCreateUser(req.body);
     res.status(200).json(user);
   } catch (error) {
-    res.status(500).json({ error: 'Error saving user' });
+    res.status(500).json({ error: "Error saving user" });
   }
 });
 
-// userRoutes.get("/getNumber",authenticateToken, getNumber);
+userRoutes.get("/getAll", async (req, res) => {
+  try {
+    const message = await getAllUsers();
+    res.status(200).json(message);
+  } catch (error) {
+    console.error("Error en la ruta getAllUsers:", error.message);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+userRoutes.get("/:idUser", async (req, res) => {
+  try {
+    const { idUser } = req.params;
+    if(!idUser){
+      return res.status(400).json("Missing data");
+    }
+    if(typeof idUser !== "string"){
+      return res.status(400).json("Invalid data");
+    }
+    const message = await getPublicProfileById(idUser);
+    res.status(200).json(message);
+  } catch (error) {
+    console.error("Error en la ruta get public profile by id:", error.message);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
 
 module.exports = userRoutes;
