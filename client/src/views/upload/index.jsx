@@ -6,23 +6,9 @@ export default function Upload() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
-  const [localStorageValue, setLocalStorageValue] = useState(localStorage.getItem("myLocalStorageKey") || true);
-
-  useEffect(() => {
-    const storedValue = localStorage.getItem("myLocalStorageKey");
-    if (storedValue !== null) {
-      setLocalStorageValue(storedValue === "true");
-    }
-  }, []);
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
-  };
-
-  const handleClick = () => {
-    const newValue = !localStorageValue;
-    setLocalStorageValue(newValue);
-    localStorage.setItem("myLocalStorageKey", newValue.toString());
   };
 
   const handleUpload = async () => {
@@ -41,6 +27,8 @@ export default function Upload() {
       );
 
       setImageUrl(response.data.secure_url);
+      console.log(response.data.secure_url);
+      
       setUploading(false);
       setSelectedFile(null);
     } catch (error) {
@@ -51,9 +39,8 @@ export default function Upload() {
 
   return (
     <div className="container">
-      <h1>Upload your photo</h1>
+      <h1>Upload your photo here</h1>
       <input type="file" onChange={handleFileChange} />
-      <button onClick={handleClick} >Local Storage: {localStorageValue ? "True" : "False"}</button>
       <button onClick={handleUpload} disabled={!selectedFile || uploading}>
         {uploading ? "Uploading..." : "Upload"}
       </button>

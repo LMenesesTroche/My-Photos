@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-//This is the model in wich we save the data from the dogs
+// Este es el modelo donde se guardan los datos de los usuarios
 module.exports = (sequelize) => {
   sequelize.define('Users', {
     auth0Id: {
@@ -21,11 +21,9 @@ module.exports = (sequelize) => {
     },
     photos:{
       type: DataTypes.ARRAY(DataTypes.STRING),
-      allowNull:true,
+      allowNull: true,
     }
-
   }, { 
     timestamps: false,
-   });
-
+  });
 };
