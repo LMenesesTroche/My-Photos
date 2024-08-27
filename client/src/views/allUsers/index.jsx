@@ -10,11 +10,11 @@ const AllUsers = () => {
   useEffect(() => {
     dispatch(getAllUsers());
   }, []);
-  console.log(allUsers);
+
   return (
     <div>
       <h1>Aqui van todos los usuarios</h1>
-      <AllUsersCards allUsers={allUsers}/>
+      <AllUsersCards allUsers={allUsers} />
     </div>
   );
 };

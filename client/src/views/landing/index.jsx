@@ -1,13 +1,9 @@
-import "./Landing.css"; // Asegúrate de importar el archivo CSS
+import "./Landing.css"; 
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import useMedia from "use-media";
 import "react-lazy-load-image-component/src/effects/blur.css"; // Efecto de desenfoque al cargar
-import { useSwipeable } from "react-swipeable";
 import axios from "axios";
-import { getUserNumber } from "../../redux/actions/auth";
-import { useDispatch } from "react-redux";
 
 const Landing = () => {
   const [photos, setPhotos] = useState([]);
@@ -16,25 +12,8 @@ const Landing = () => {
   const [rotateRight, setRotateRight] = useState(true); // Estado para rotación intercalada
   const [showButtons, setShowButtons] = useState(true); // Estado para mostrar/ocultar botones
   const [imageClass, setImageClass] = useState("modal-content"); // Estado para manejar la clase de imagen
-  const user = useSelector((state) => state.auth.user);
-  const token = localStorage.getItem("token");
-  const number = localStorage.getItem("number");
-  const [userName, setUserName] = useState("Not logged yet");
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (token) {      
-      // Extraer la información del token
-      const payloadBase64 = token.split('.')[1]; // Obtenemos la segunda parte del token
-      const payload = JSON.parse(atob(payloadBase64)); // Decodificamos el Base64 y parseamos a JSON
-      setUserName(payload.email);
-
-      //Verificar que el token sirve
-      // dispatch(getUserNumber());
-    }
-  }, [token]);
-
-  // Hook para determinar si la pantalla es grande (por ejemplo, >= 1024px)
+  // Hook para determinar si la pantalla es grande 
   const isLargeScreen = useMedia({ minWidth: "1024px" });
 
   const userInfo = {
@@ -117,13 +96,6 @@ const Landing = () => {
     setShowButtons((prevShowButtons) => !prevShowButtons);
   };
 
-  const swipeHandlers = useSwipeable({
-    onSwipedLeft: handleNextPhoto,
-    onSwipedRight: handlePreviousPhoto,
-    preventDefaultTouchmoveEvent: true,
-    trackMouse: true,
-  });
-
   return (
     <div className="landing-container">
       <div className="userInfo">
@@ -176,7 +148,7 @@ const Landing = () => {
             src={selectedPhoto.high_res_url} // Usa la URL de alta resolución
             alt="Expanded"
             style={{ transform: `rotate(${rotation}deg)` }}
-            onClick={toggleButtonsAndBackground} // Toggle buttons and background on image click
+            onClick={toggleButtonsAndBackground} 
           />
         </div>
       )}

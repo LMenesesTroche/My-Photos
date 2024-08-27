@@ -1,13 +1,11 @@
 import axios from "axios";
 import rutaBack from "./rutaBack";
 
-export const GET_USERS = "REGISTER_SUCCESS";
-
-export const uploadBack = () => {
+export const uploadBack = (data) => {
   return async (dispatch) => {
     try {
-      let response = await axios.get(`${rutaBack}/upload`);
-      console.log(response);
+      let response = await axios.post(`${rutaBack}/profiles/uploadImage`,data);
+      console.log(response.data);
     } catch (error) {
       console.log("Error en actions get all Users", error);
     }

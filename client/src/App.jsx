@@ -6,6 +6,7 @@ import Footer from "./components/footer";
 import Upload from "./views/upload";
 import UserData from "./views/profile/index";
 import AllUsers from "./views/allUsers";
+import PublicProfile from "./views/publicProfile";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/userData" element={<UserData />} />
         <Route path="/allUsers" element={<AllUsers />} />
+        <Route path="/profile/:id" element={<PublicProfile />} />
       </Routes>
       <Footer />
     </div>

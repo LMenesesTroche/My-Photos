@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import "./upload.css";
-
+import { useAuth0 } from "@auth0/auth0-react";
+import { useDispatch } from "react-redux";
+import { uploadBack } from "../../redux/actions/photos";
 export default function Upload() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
+  const dispatch = useDispatch();
+  const { user } = useAuth0();
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -26,9 +30,10 @@ export default function Upload() {
         formData
       );
 
+      dispatch(uploadBack({url: response.data.secure_url,idUser:user.sub}));
+
       setImageUrl(response.data.secure_url);
-      console.log(response.data.secure_url);
-      
+
       setUploading(false);
       setSelectedFile(null);
     } catch (error) {
