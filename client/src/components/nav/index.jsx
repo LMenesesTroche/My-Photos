@@ -35,9 +35,9 @@ const Navbar = () => {
         />
       </Link>
       <div className="navbar-links">
-        <Link to="/">Home</Link>
-        <Link to="/userData">Profile</Link>
-        <Link to="/upload">Upload</Link>
+        <Link to="/">Home</Link>        
+        {isAuthenticated ?  <Link to="/userData">Profile</Link>:null}
+        {isAuthenticated ?  <Link to="/upload">Upload</Link>:null}
         <Link to="/allUsers">All users</Link>
         {isAuthenticated ?  <LogOutButtonAuth0/>:<LoginButtonAuth0/>}      
       </div>

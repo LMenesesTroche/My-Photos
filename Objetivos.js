@@ -7,12 +7,9 @@
 4.-Pasarela de pagos paypal
 5.-Comodo al usuario (Reactive)
 6.-Poder acomodar las imagenes
+7.-delete
+?bug al crear nueva cuenta map
+que se upload sin boton
 
-
-Ya tengo el login lo que toca ahora es hacer la app segun usuarios y que una vez se autentiquen se habilite
-la opcion de upload
-? Necesito
-//1 get photos and name by user id(params)
-2 al hacer upload guardar el link en el modelo del usuario 
 
 */
