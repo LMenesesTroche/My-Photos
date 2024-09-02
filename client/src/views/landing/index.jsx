@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import useMedia from "use-media";
 import "react-lazy-load-image-component/src/effects/blur.css"; // Efecto de desenfoque al cargar
-import axios from "axios";
 
 const Landing = () => {
   // const [photos, setPhotos] = useState([]);

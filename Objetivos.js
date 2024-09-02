@@ -8,8 +8,9 @@
 5.-Comodo al usuario (Reactive)
 6.-Poder acomodar las imagenes
 7.-delete
-?bug al crear nueva cuenta map
-que se upload sin boton
+
+agregar boton en nav  "mi perfil"
+
 
 
 */

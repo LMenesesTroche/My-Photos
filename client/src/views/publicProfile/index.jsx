@@ -102,7 +102,7 @@ const PublicProfile = () => {
         </div>
       </div>
       <div className="gallery">
-        {userPublicInfo.photos.map(
+        {userPublicInfo.photos && userPublicInfo.photos.map(
           (photo, index) => (
             <LazyLoadImage
               key={index}
