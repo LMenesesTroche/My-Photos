@@ -2,6 +2,7 @@ const { Router } = require("express");
 const findOrCreateUser = require("../controllers/users/findOrCreateUser");
 const getAllUsers = require("../controllers/users/getAllUsers");
 const getPublicProfileById = require("../controllers/users/getPublicProfileById");
+const hasPaid = require("../controllers/users/hasPaid");
 
 const userRoutes = Router();
 
@@ -17,6 +18,7 @@ userRoutes.post("/api", async (req, res) => {
     res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ error: "Error saving user" });
+    console.log("error en create user",error)
   }
 });
 
@@ -44,6 +46,22 @@ userRoutes.get("/:idUser", async (req, res) => {
   } catch (error) {
     console.error("Error en la ruta get public profile by id:", error.message);
     res.status(500).json({ error: error.message });
+  }
+});
+
+userRoutes.post("/hasPaid", async (req, res) => {
+  try {
+    const { userId } = req.body;
+
+    if(!userId){
+      return res.status(400).json({ error: "Missing data" });
+    }
+
+    const userHasPaid = await hasPaid(userId);
+    res.status(200).json({ hasPaid: userHasPaid });
+
+  } catch (error) {
+    res.status(500).json({ error: "Error checking payment status" });
   }
 });
 

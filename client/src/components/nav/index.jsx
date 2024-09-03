@@ -38,7 +38,7 @@ const Navbar = () => {
         <Link to="/">Home</Link>        
         {isAuthenticated ?  <Link to="/userData">Profile</Link>:null}
         {isAuthenticated ?  <Link to="/upload">Upload</Link>:null}
-        <Link to="/allUsers">All users</Link>
+        <Link to="/allUsers">All users</Link>        
         {isAuthenticated ?  <LogOutButtonAuth0/>:<LoginButtonAuth0/>}      
       </div>
     </nav>

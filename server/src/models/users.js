@@ -22,6 +22,11 @@ module.exports = (sequelize) => {
     photos:{
       type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: true,
+    },
+    hasPaid:{
+      type: DataTypes.BOOLEAN,
+      default: false,
+      allowNull: true,
     }
   }, { 
     timestamps: false,
