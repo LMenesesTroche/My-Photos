@@ -1,7 +1,12 @@
 const { DataTypes } = require('sequelize');
-// Este es el modelo donde se guardan los datos de los usuarios
+
 module.exports = (sequelize) => {
-  sequelize.define('Users', {
+  sequelize.define('user', {
+    id_user: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+    },
     auth0Id: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -19,11 +24,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    photos:{
-      type: DataTypes.ARRAY(DataTypes.STRING),
-      allowNull: true,
-    },
-    hasPaid:{
+    hasPaid: {
       type: DataTypes.BOOLEAN,
       default: false,
       allowNull: true,

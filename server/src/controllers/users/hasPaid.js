@@ -1,7 +1,7 @@
-const { Users } = require("../../db.js");
+const { user } = require("../../db.js");
 
 const hasPaid = async (userId) => {
-  const user = await Users.findOne({
+  const user = await user.findOne({
     where: { auth0Id: userId }
   });
 

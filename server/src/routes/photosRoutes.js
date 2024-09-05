@@ -1,37 +1,30 @@
 const { Router } = require("express");
-const axios = require("axios");
+const postPhoto = require("../controllers/photos/postPhoto");
+
 const photosRoutes = Router();
 
-photosRoutes.get("/", async (req, res) => {
-  // try {
-  //   const response = await axios.get(
-  //     `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/resources/image/upload`,
-  //     {
-  //       params: {
-  //         prefix: "photos", // Estoy sacando las fotos de la carpeta photos
-  //         max_results: 50, //Devuelve maximo 50  resultados porpeticion
-  //       },
-  //       auth: {
-  //         username: process.env.CLOUDINARY_API_KEY,
-  //         password: process.env.CLOUDINARY_API_SECRET,
-  //       },
-  //     }
-  //   );
+photosRoutes.post("/new", async (req, res) => {
+  try {
+    const { id_user, highUrl, lowUrl } = req.body;
 
-  //   // Transformar datos para incluir URLs de baja y alta resolución
-  //   const transformedPhotos = response.data.resources.map((photo) => ({
-  //     low_res_url: photo.secure_url.replace(
-  //       "/upload/",
-  //       "/upload/w_500,h_500,c_limit,q_70/"
-  //     ),
-  //     high_res_url: photo.secure_url,
-  //   }));
-
-  //   res.json(transformedPhotos);
-  // } catch (error) {
-  //   console.error("Error fetching images:", error);
-  //   res.status(500).send("Error fetching images");
-  // }
+    if(!id_user||!highUrl||!lowUrl){
+      return res.status(400).json({ error: "Missing data" });
+    }
+    if(typeof id_user !== "string"){
+      return res.status(400).json({ error: "Id user must be a string" });
+    }
+    if(typeof highUrl !== "string"){
+      return res.status(400).json({ error: "amount must be a number" });
+    }
+    if(typeof lowUrl !== "string"){
+      return res.status(400).json({ error: "amount must be a number" });
+    }
+    const message = await postPhoto({ id_user, highUrl, lowUrl });
+    res.status(200).json(message);
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ error: "Error on create photo"});
+  }
 });
 
 module.exports = photosRoutes;

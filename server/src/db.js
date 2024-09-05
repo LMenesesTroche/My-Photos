@@ -1,38 +1,35 @@
 require('dotenv').config();
 const { Sequelize } = require('sequelize');
-const fs = require('fs');
-const path = require('path');
+const paymentsModel = require('./models/payments');
+const userModel = require('./models/users');
+const photosModel = require('./models/photos');
 
 const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
 
 const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/photos`, {
-  logging: false, // set to console.log to see the raw SQL queries
-  native: false, // lets Sequelize know we can use pg-native for ~30% more speed
+  logging: false, 
+  native: false, 
 });
 
-const basename = path.basename(__filename);
+// DB models
+userModel(sequelize);
+paymentsModel(sequelize);
+photosModel(sequelize);
 
-const modelDefiners = [];
+// Relaciones
+const { user, payments, photos } = sequelize.models;
 
-// Leemos todos los archivos de la carpeta Models, los requerimos y agregamos al arreglo modelDefiners
-fs.readdirSync(path.join(__dirname, '/models'))
-  .filter((file) => (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js'))
-  .forEach((file) => {
-    modelDefiners.push(require(path.join(__dirname, '/models', file)));
-  });
+// Relación de 1 a muchos de usuario a pagos
+user.hasMany(payments);
+payments.belongsTo(user);
 
-// Injectamos la conexion (sequelize) a todos los modelos
-modelDefiners.forEach(model => model(sequelize));
-// Capitalizamos los nombres de los modelos ie: product => Product
-let entries = Object.entries(sequelize.models);
-let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]]);
-sequelize.models = Object.fromEntries(capsEntries);
-
-
-
-
+// Relación de 1 a muchos de usuario a fotos
+user.hasMany(photos, { foreignKey: 'id_user' }); // Especifica explícitamente la clave foránea
+photos.belongsTo(user, { foreignKey: 'id_user' }); // Especifica explícitamente la clave foránea
 
 module.exports = {
-  ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
-  conn: sequelize,     // para importart la conexión { conn } = require('./db.js');
+  user,
+  payments,
+  photos,
+  conn: sequelize,
 };

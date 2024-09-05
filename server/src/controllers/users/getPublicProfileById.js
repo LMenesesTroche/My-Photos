@@ -1,7 +1,7 @@
-const { Users } = require("../../db.js");
+const { user } = require("../../db.js");
 
 const getPublicProfileById = async (id) => {
-  const publicProfile = await Users.findOne({ where: {auth0Id:id}});
+  const publicProfile = await user.findOne({ where: {auth0Id:id}});
   return publicProfile;
 };
 
