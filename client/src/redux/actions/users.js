@@ -3,6 +3,7 @@ import axios from "axios";
 
 export const GET_USERS = "GET_USERS";
 export const USER_PUBLIC_INFO = "USER_PUBLIC_INFO";
+export const DELETE_PHOTO = "DELETE_PHOTO";
 
 export const getAllUsers = () => {
   return async (dispatch) => {
@@ -31,3 +32,31 @@ export const getUserInfoById = (id) => {
     }
   }
 }
+
+// Acción para eliminar una foto
+export const deletePhoto = (photoId) => async (dispatch, getState) => {
+  try {
+    const token = localStorage.getItem('authToken'); // Recupera el token del localStorage
+    console.log("Token:", token); // Verificar si el token es correcto
+    
+    console.log(localStorage.getItem('authToken'))
+    const response = await axios.delete(`${rutaBack}/photos/delete`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      data: {
+        id_user: getState().users.userPublicInfo.auth0Id, // Usa el id del usuario actual
+        id_photo: photoId,
+      }
+    });
+
+    // Actualiza el estado después de eliminar la foto
+    dispatch({
+      type: DELETE_PHOTO,
+      payload: photoId,
+    });
+
+  } catch (error) {
+    console.error('Error deleting photo:', error);
+  }
+};

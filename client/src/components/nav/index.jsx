@@ -8,22 +8,28 @@ import {useAuth0} from "@auth0/auth0-react";
 import rutaBack from "../../redux/actions/rutaBack";
 
 const Navbar = () => {
-  const { user, isAuthenticated } = useAuth0();
+  const { user, isAuthenticated, getAccessTokenSilently  } = useAuth0();
 
   // Enviar la información del usuario al backend cuando el usuario está autenticado
   useEffect(() => {
-    const sendInfoBack = async () => {
-      if (isAuthenticated && user) {
+    const storeToken = async () => {
+      if (isAuthenticated) {
         try {
+          const token = await getAccessTokenSilently();
+          localStorage.setItem('authToken', token);
+
           await axios.post(`${rutaBack}/users/api`, user);
         } catch (error) {
-          console.error("Error saving user:", error);
+          console.error("Error getting or storing token:", error);
         }
+      } else {
+        // Limpiar el token cuando el usuario se desautentica
+        localStorage.removeItem('authToken');
       }
     };
 
-    sendInfoBack();
-  }, [isAuthenticated, user]); // Este useEffect se ejecuta cuando isAuthenticated o user cambian
+    storeToken();
+  }, [isAuthenticated, getAccessTokenSilently, user]); // Este useEffect se ejecuta cuando isAuthenticated, getAccessTokenSilently o user cambian
   
   return (
     <nav className="navbar">

@@ -14,7 +14,7 @@ module.exports = (sequelize) => {
     },
     highUrl: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
   }, { 
     timestamps: false,

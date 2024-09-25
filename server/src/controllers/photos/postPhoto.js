@@ -1,7 +1,12 @@
 const { photos, user } = require("../../db");
 
 const postPhoto = async ({ id_user, highUrl, lowUrl }) => {
-  const foundUser = await user.findByPk(id_user);
+
+  const foundUser = await user.findOne({
+    where: {
+      auth0Id:id_user
+    },
+  });
 
   if (!foundUser) {
     throw new Error("User not found");

@@ -10,26 +10,29 @@ export default function Upload() {
   const [uploading, setUploading] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
   const [hasPaid, setHasPaid] = useState(false);
-  const [loadingPaymentStatus, setLoadingPaymentStatus] = useState(true);
+  // const [loadingPaymentStatus, setLoadingPaymentStatus] = useState(true);
   const dispatch = useDispatch();
   const { user } = useAuth0();
 
-  useEffect(() => {
-    const checkPaymentStatus = async () => {
-      try {
-        const response = await axios.post(`${rutaBack}/users/hasPaid`, { userId: user.sub });
-        console.log(response.data.hasPaid)
-        setHasPaid(response.data.hasPaid);
-      } catch (error) {
-        console.error("Error checking payment status", error);
-      } finally {
-        setLoadingPaymentStatus(false);
-      }
-    };
 
-    if (user) {
-      checkPaymentStatus();
-    }
+  useEffect(() => {
+    // const checkPaymentStatus = async () => {
+    //   try {
+    //     const response = await axios.post(`${rutaBack}/users/hasPaid`, { userId: user.sub });
+    //     console.log(response.data.hasPaid)
+    //     setHasPaid(response.data.hasPaid);
+    //   } catch (error) {
+    //     console.error("Error checking payment status", error);
+    //   } finally {
+    //     setLoadingPaymentStatus(false);
+    //   }
+    // };
+
+    // if (user) {
+    //   checkPaymentStatus();
+    // }
+    setHasPaid(true);
+
   }, [user]);
 
   const handleFileChange = async (event) => {
@@ -37,24 +40,38 @@ export default function Upload() {
       alert("Please pay $10 via PayPal before uploading images.");
       return;
     }
-
+  
     const selectedFile = event.target.files[0];
     if (!selectedFile) return;
-
+  
     setUploading(true);
-
+  
     const formData = new FormData();
     formData.append("file", selectedFile);
     formData.append("upload_preset", "portafolioProyect");
-
+  
     try {
       const response = await axios.post(
         `https://api.cloudinary.com/v1_1/decbwosgj/image/upload`,
         formData
       );
-
-      dispatch(uploadBack({ url: response.data.secure_url, idUser: user.sub }));
-      setImageUrl(response.data.secure_url);
+  
+      const highUrl = response.data.secure_url;
+  
+      // Generar una URL de baja calidad (por ejemplo, q_auto:low)
+      const lowUrl = highUrl.replace("/upload/", "/upload/q_auto:low/");
+  
+      // O si prefieres un control manual sobre la calidad (calidad al 20%)
+      // const lowQualityUrl = highQualityUrl.replace("/upload/", "/upload/q_20/");
+  
+      // Envía ambas URLs al backend o guárdalas en el estado.
+      dispatch(uploadBack({ 
+        highUrl, 
+        lowUrl, 
+        id_user: user.sub 
+      }));
+  
+      setImageUrl(lowUrl); // Usas la de alta calidad para la vista previa, por ejemplo.
     } catch (error) {
       console.error("Error uploading the image", error);
       setUploading(false);
@@ -62,10 +79,11 @@ export default function Upload() {
       setUploading(false);
     }
   };
+  
 
-  if (loadingPaymentStatus) {
-    return <p>Loading...</p>;
-  }
+  // if (loadingPaymentStatus) {
+  //   return <p>Loading...</p>;
+  // }
 
   return (
     <div className="container">

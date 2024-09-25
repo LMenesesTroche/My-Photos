@@ -1,21 +1,24 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { getUserInfoById } from "../../redux/actions/users";
+import { getUserInfoById, deletePhoto } from "../../redux/actions/users";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import useMedia from "use-media";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { AiFillDelete } from "react-icons/ai"; 
+import { useAuth0 } from "@auth0/auth0-react";  
 
 const PublicProfile = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const userPublicInfo = useSelector((state) => state.users.userPublicInfo);
-
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [rotation, setRotation] = useState(0);
   const [rotateRight, setRotateRight] = useState(true);
   const [showButtons, setShowButtons] = useState(true);
   const [imageClass, setImageClass] = useState("modal-content");
+
+  const { getAccessTokenSilently } = useAuth0();  
 
   const isLargeScreen = useMedia({ minWidth: 768 });
 
@@ -85,11 +88,23 @@ const PublicProfile = () => {
     setShowButtons((prevShowButtons) => !prevShowButtons);
   };
 
-  // Verifica que userPublicInfo no sea null o undefined antes de intentar acceder a sus propiedades
+  const handleDeletePhoto = async (photoId) => {
+    try {
+      const accessToken = await getAccessTokenSilently();  // Obtén el token de forma silenciosa
+      console.log("Este es el token:", accessToken);
+
+      // Si quieres continuar con la eliminación de la foto, descomenta esta parte
+      // if (window.confirm("Are you sure you want to delete this photo?")) {
+      //   dispatch(deletePhoto(photoId));
+      // }
+    } catch (error) {
+      console.error("Error obteniendo el token de acceso", error);
+    }
+  };
+
   if (!userPublicInfo) {
     return <div>Loading...</div>;
   }
-
   return (
     <div className="landing-container">
       <div className="userInfo">
@@ -103,15 +118,22 @@ const PublicProfile = () => {
       </div>
       <div className="gallery">
         {userPublicInfo.photos && userPublicInfo.photos.map(
-          (photo, index) => (
-            <LazyLoadImage
-              key={index}
-              src={photo}
-              className="gallery-photo"
-              alt={`Foto ${index + 1}`}
-              onClick={() => handlePhotoClick(photo)}
-              effect="blur"
-            />
+          (photo) => (
+            <div key={photo.id_photos} className="photo-item">
+              <LazyLoadImage
+                src={photo.lowUrl} // Usa lowUrl para la vista previa en la galería
+                className="gallery-photo"
+                alt={`Foto ${photo.id_photos}`}
+                onClick={() => handlePhotoClick(photo)}
+                effect="blur"
+              />
+              <button 
+                className="delete-button" 
+                onClick={() => handleDeletePhoto(photo.id_photos)}
+              >
+                <AiFillDelete />
+              </button>
+            </div>
           )
         )}
       </div>
@@ -138,7 +160,7 @@ const PublicProfile = () => {
           )}
           <img
             className={imageClass}
-            src={selectedPhoto}
+            src={selectedPhoto.highUrl} // Usa highUrl para la vista en el modal
             alt="Expanded"
             style={{ transform: `rotate(${rotation}deg)` }}
             onClick={toggleButtonsAndBackground}
