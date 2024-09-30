@@ -9,15 +9,13 @@
  en upload no me saldra la opcion de subir fotos hasta pagar, luego de eso se habilita
 5.-Comodo al usuario (Reactive)
 6.-Poder acomodar las imagenes
-7.- deploy
+7.-Dashboard (Perdonar paga de un usuario, ver todos los pagos)
+8.- deploy
 
-creo que no funciona por el tiempo de autenticacion  en auth 0
+el boton profile de nav debe dirigir a mi portafolio
+Hacer borrar de una vez
 
-?el boton profile de nav debe dirigir a mi portafolio
+!En proceso de guardar los pagos de paypal en la base de datos
 
-auth
-UTCUM3U8EWHK8XMWHNNHFRVB
-12345678910
-kjsdakjfdsaflkñds
-lñsdkfñlsdkflakwsflñkwefk
+
 */

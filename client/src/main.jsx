@@ -6,6 +6,7 @@ import App from "./App";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import { Auth0Provider } from "@auth0/auth0-react";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 ReactDOM.render(
   <Provider store={store}>
@@ -16,9 +17,15 @@ ReactDOM.render(
         redirect_uri: window.location.origin,
       }}
     >
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <PayPalScriptProvider
+        options={{
+          "client-id":"AYEW8Eb8fhI-2xC-myOv0dn5l2Y_n9jBMbgj65BbXr8VGKTlBMFpovi5ds_u8CRI0ZXnYI6r6pvbrNph"// Este es el id del vendedor falso
+        }}
+      >
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </PayPalScriptProvider>
     </Auth0Provider>
   </Provider>,
   document.getElementById("root")

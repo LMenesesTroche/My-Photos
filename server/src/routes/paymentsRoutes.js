@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const getAllPayments = require("../controllers/payments/getAllPayments");
-const createNewPayment = require("../controllers/payments/createNewPayment");
+const savePayments = require("../controllers/payments/savePayment");
 
 const paymentsRoutes = Router();
 
@@ -14,20 +14,11 @@ paymentsRoutes.get("/all", async (req, res) => {
   }
 });
 
-paymentsRoutes.post("/new", async (req, res) => {
+paymentsRoutes.post("/save-payment", async (req, res) => {
   try {
-    const { id_user, amount } = req.body;
+    //!Seria bueno verificar los datos en este punto
 
-    if(!id_user||!amount){
-      return res.status(400).json({ error: "Missing data" });
-    }
-    if(typeof id_user !== "string"){
-      return res.status(400).json({ error: "Id user must be a string" });
-    }
-    if(typeof amount !== "number"){
-      return res.status(400).json({ error: "amount must be a number" });
-    }
-    const message = await createNewPayment({ id_user, amount});
+    const message = await savePayments(req);
     res.status(200).json(message);
   } catch (error) {
     console.log(error)

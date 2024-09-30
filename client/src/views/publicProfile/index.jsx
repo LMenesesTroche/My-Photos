@@ -90,13 +90,10 @@ const PublicProfile = () => {
 
   const handleDeletePhoto = async (photoId) => {
     try {
-      const accessToken = await getAccessTokenSilently();  // Obtén el token de forma silenciosa
-      console.log("Este es el token:", accessToken);
 
-      // Si quieres continuar con la eliminación de la foto, descomenta esta parte
-      // if (window.confirm("Are you sure you want to delete this photo?")) {
-      //   dispatch(deletePhoto(photoId));
-      // }
+      if (window.confirm("Are you sure you want to delete this photo?")) {
+        dispatch(deletePhoto(photoId));
+      }
     } catch (error) {
       console.error("Error obteniendo el token de acceso", error);
     }

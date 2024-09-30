@@ -36,10 +36,10 @@ export const getUserInfoById = (id) => {
 // Acción para eliminar una foto
 export const deletePhoto = (photoId) => async (dispatch, getState) => {
   try {
+
     const token = localStorage.getItem('authToken'); // Recupera el token del localStorage
-    console.log("Token:", token); // Verificar si el token es correcto
+    console.log("Token  de local:", token); // Verificar si el token es correcto
     
-    console.log(localStorage.getItem('authToken'))
     const response = await axios.delete(`${rutaBack}/photos/delete`, {
       headers: {
         Authorization: `Bearer ${token}`

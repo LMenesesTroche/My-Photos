@@ -16,7 +16,19 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    status: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    date:{
+      type: DataTypes.DATE,
+      allowNull:false,
+    },
+    invoice:{
+      type: DataTypes.STRING,
+      allowNull:false,
+    }
   }, { 
-    timestamps: true,
+    timestamps: false,
   });
 };

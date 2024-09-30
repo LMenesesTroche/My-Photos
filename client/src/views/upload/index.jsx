@@ -5,6 +5,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch } from "react-redux";
 import { uploadBack } from "../../redux/actions/photos";
 import rutaBack from "../../redux/actions/rutaBack";
+import PayPalButton from "../../components/paypal";
 
 export default function Upload() {
   const [uploading, setUploading] = useState(false);
@@ -15,25 +16,7 @@ export default function Upload() {
   const { user } = useAuth0();
 
 
-  useEffect(() => {
-    // const checkPaymentStatus = async () => {
-    //   try {
-    //     const response = await axios.post(`${rutaBack}/users/hasPaid`, { userId: user.sub });
-    //     console.log(response.data.hasPaid)
-    //     setHasPaid(response.data.hasPaid);
-    //   } catch (error) {
-    //     console.error("Error checking payment status", error);
-    //   } finally {
-    //     setLoadingPaymentStatus(false);
-    //   }
-    // };
-
-    // if (user) {
-    //   checkPaymentStatus();
-    // }
-    setHasPaid(true);
-
-  }, [user]);
+  
 
   const handleFileChange = async (event) => {
     if (!hasPaid) {
@@ -60,10 +43,7 @@ export default function Upload() {
   
       // Generar una URL de baja calidad (por ejemplo, q_auto:low)
       const lowUrl = highUrl.replace("/upload/", "/upload/q_auto:low/");
-  
-      // O si prefieres un control manual sobre la calidad (calidad al 20%)
-      // const lowQualityUrl = highQualityUrl.replace("/upload/", "/upload/q_20/");
-  
+ 
       // Envía ambas URLs al backend o guárdalas en el estado.
       dispatch(uploadBack({ 
         highUrl, 
@@ -81,9 +61,6 @@ export default function Upload() {
   };
   
 
-  // if (loadingPaymentStatus) {
-  //   return <p>Loading...</p>;
-  // }
 
   return (
     <div className="container">
@@ -92,9 +69,7 @@ export default function Upload() {
         <div>
           <p>Please pay $10 via PayPal to upload images.</p>
           {/* Aquí puedes incluir un botón o enlace para el pago de PayPal */}
-          <a href="https://www.paypal.com/paypalme/yourpaypalid/10" target="_blank" rel="noopener noreferrer">
-            Pay $10
-          </a>
+          <PayPalButton totalValue={10} invoice={"Taza de cafe "}/>
         </div>
       ) : (
         <>

@@ -1,17 +1,9 @@
-const { expressjwt: jwt } = require('express-jwt');
-const jwksRsa = require('jwks-rsa');
-require('dotenv').config(); // Asegúrate de cargar las variables de entorno
+const { auth } = require('express-oauth2-jwt-bearer');
 
-const checkJwt = jwt({
-  secret: jwksRsa.expressJwtSecret({
-    cache: true,
-    rateLimit: true,
-    jwksRequestsPerMinute: 5,
-    jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`
-  }),
-  audience: process.env.AUTH0_AUDIENCE,
-  issuer: `https://${process.env.AUTH0_DOMAIN}/`,
-  algorithms: ['RS256']
+const checkJwt = auth({
+    audience: process.env.AUTH0_AUDIENCE,  // Verifica el valor en el .env
+    issuerBaseURL: process.env.AUTH0_DOMAIN,  // No debe tener un slash final
+    tokenSigningAlg: 'RS256'  // El algoritmo de firma de los tokens en Auth0
 });
 
 module.exports = checkJwt;
