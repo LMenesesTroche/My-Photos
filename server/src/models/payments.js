@@ -1,6 +1,5 @@
 const { DataTypes } = require('sequelize');
 
-//This is the model where we keep the payments info
 module.exports = (sequelize) => {
   sequelize.define('payments', {
     id_payments: {
@@ -9,7 +8,7 @@ module.exports = (sequelize) => {
       primaryKey: true,
     },
     id_user: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING,  // Should match the type in 'user' model
       allowNull: false,
     },
     amount: {
@@ -20,13 +19,13 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    date:{
+    date: {
       type: DataTypes.DATE,
-      allowNull:false,
+      allowNull: false,
     },
-    invoice:{
+    invoice: {
       type: DataTypes.STRING,
-      allowNull:false,
+      allowNull: false,
     }
   }, { 
     timestamps: false,

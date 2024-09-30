@@ -20,8 +20,15 @@ photosModel(sequelize);
 const { user, payments, photos } = sequelize.models;
 
 // Relación de 1 a muchos de usuario a pagos
-user.hasMany(payments);
-payments.belongsTo(user);
+user.hasMany(payments, {
+  foreignKey: 'id_user',  // Explicitly specifying the foreign key
+  sourceKey: 'id_user',   // Refers to the user model's primary key
+});
+
+payments.belongsTo(user, {
+  foreignKey: 'id_user',  // The foreign key in payments model
+  targetKey: 'id_user',   // Refers to the user model's primary key
+});
 
 // Relación de 1 a muchos de usuario a fotos
 user.hasMany(photos, { foreignKey: 'id_user' }); // Especifica explícitamente la clave foránea
