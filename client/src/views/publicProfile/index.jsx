@@ -18,8 +18,6 @@ const PublicProfile = () => {
   const [showButtons, setShowButtons] = useState(true);
   const [imageClass, setImageClass] = useState("modal-content");
 
-  const { getAccessTokenSilently } = useAuth0();  
-
   const isLargeScreen = useMedia({ minWidth: 768 });
 
   useEffect(() => {

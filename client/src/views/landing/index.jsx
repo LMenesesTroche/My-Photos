@@ -122,24 +122,6 @@ const Landing = () => {
   const [isLoading, setIsLoading] = useState(false); // Nuevo estado para la barra de carga
   const isLargeScreen = useMedia({ minWidth: "1024px" });
 
-  // useEffect(() => {
-  //   const handleKeyDown = (e) => {
-  //     if (e.key === "ArrowLeft") {
-  //       handlePreviousPhoto(e);
-  //     } else if (e.key === "ArrowRight") {
-  //       handleNextPhoto(e);
-  //     }
-  //   };
-
-  //   if (selectedPhoto) {
-  //     window.addEventListener("keydown", handleKeyDown);
-  //   }
-
-  //   return () => {
-  //     window.removeEventListener("keydown", handleKeyDown);
-  //   };
-  // }, [selectedPhoto]);
-
   const handlePhotoClick = (photo) => {
     setSelectedPhoto(photo);
     setRotation(0); // Reinicia la rotación al abrir una nueva imagen

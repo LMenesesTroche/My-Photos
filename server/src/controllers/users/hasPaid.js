@@ -1,15 +1,18 @@
 const { user } = require("../../db.js");
 
 const hasPaid = async (userId) => {
-  const user = await user.findOne({
+  const userFound = await user.findOne({
     where: { auth0Id: userId }
   });
 
-  if (user && user.hasPaid === true) {
-    return true;
+  if(!userFound){
+    return 'User not found';
   }
 
-  return false;
+  if (userFound.hasPaid === true) {
+    return true;
+  }
+  return false
 };
 
 module.exports = hasPaid;

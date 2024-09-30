@@ -57,8 +57,8 @@ userRoutes.post("/hasPaid", async (req, res) => {
       return res.status(400).json({ error: "Missing data" });
     }
 
-    const userHasPaid = await hasPaid(userId);
-    res.status(200).json({ hasPaid: userHasPaid });
+    const response = await hasPaid(userId);
+    res.status(200).json(response);
 
   } catch (error) {
     res.status(500).json({ error: "Error checking payment status" });

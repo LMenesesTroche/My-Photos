@@ -2,21 +2,27 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./upload.css";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { uploadBack } from "../../redux/actions/photos";
 import rutaBack from "../../redux/actions/rutaBack";
 import PayPalButton from "../../components/paypal";
+import { userHasPaidById } from "../../redux/actions/users";
 
 export default function Upload() {
   const [uploading, setUploading] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
-  const [hasPaid, setHasPaid] = useState(false);
-  // const [loadingPaymentStatus, setLoadingPaymentStatus] = useState(true);
+  // const [hasPaid, setHasPaid] = useState(false);
+  const { user, isAuthenticated, isLoading } = useAuth0();  // Destructura más propiedades para manejar la autenticación
+  const hasPaid = useSelector((state) => state.users.hasPaid);
+
   const dispatch = useDispatch();
-  const { user } = useAuth0();
 
-
-  
+  useEffect(() => {
+    // Verificar si el usuario está autenticado y no está cargando
+    if (isAuthenticated && user) {
+      dispatch(userHasPaidById(user.sub));
+    }
+  }, [dispatch, user, isAuthenticated]);
 
   const handleFileChange = async (event) => {
     if (!hasPaid) {
