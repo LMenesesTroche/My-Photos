@@ -1,35 +1,46 @@
 const { photos, user } = require("../../db");
 
 const deletePhoto = async ({ id_user, id_photo }) => {
-
+  // Buscar el usuario basado en el id del Auth0
   const foundUser = await user.findOne({
     where: {
-        auth0Id: id_user
+      auth0Id: id_user,
     },
   });
 
-  const findPhoto = await photos.findByPk(id_photo);
-
+  // Si no se encuentra el usuario, lanzar un error
   if (!foundUser) {
     throw new Error("User not found");
   }
 
-  if (!findPhoto) {
-    throw new Error("Photo not found");
-  }
-
-  const destroy = await photos.destroy({
+  // Buscar la foto por id y que pertenezca al usuario
+  const findPhoto = await photos.findOne({
     where: {
-        id_photos:id_photo
-    }
+      id_photos: id_photo, // Asegúrate de usar el campo correcto para el id de la foto
+      userId: foundUser.id, // Verifica que el usuario sea el propietario de la foto
+    },
   });
 
-  if(destroy){
-    return {message:"Deleted succesfully"};
-  }else {
+  // Si no se encuentra la foto o no pertenece al usuario, lanzar un error
+  if (!findPhoto) {
+    throw new Error("Photo not found or you are not the owner");
+  }
+
+  
+  // Eliminar la foto si todas las validaciones anteriores son correctas
+  const destroy = await photos.destroy({
+    where: {
+      id_photos: id_photo,
+      userId: foundUser.id, 
+    },
+  });
+
+  // Confirmar eliminación
+  if (destroy) {
+    return { message: "Deleted successfully" };
+  } else {
     throw new Error("Failed to delete photo");
   }
-  
 };
 
 module.exports = deletePhoto;

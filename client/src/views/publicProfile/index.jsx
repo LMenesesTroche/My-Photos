@@ -86,16 +86,17 @@ const PublicProfile = () => {
     setShowButtons((prevShowButtons) => !prevShowButtons);
   };
 
-  const handleDeletePhoto = async (photoId) => {
+  const handleDeletePhoto = async (id_user, id_photo) => {
     try {
-
       if (window.confirm("Are you sure you want to delete this photo?")) {
-        dispatch(deletePhoto(photoId));
+        dispatch(deletePhoto(id_user, id_photo));
       }
     } catch (error) {
       console.error("Error obteniendo el token de acceso", error);
     }
   };
+
+  // console.log(userPublicInfo);
 
   if (!userPublicInfo) {
     return <div>Loading...</div>;
@@ -124,7 +125,7 @@ const PublicProfile = () => {
               />
               <button 
                 className="delete-button" 
-                onClick={() => handleDeletePhoto(photo.id_photos)}
+                onClick={() => handleDeletePhoto(photo.id_photos,userPublicInfo.id_user)}
               >
                 <AiFillDelete />
               </button>

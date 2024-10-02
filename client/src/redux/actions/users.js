@@ -34,28 +34,34 @@ export const getUserInfoById = (id) => {
   }
 }
 
-// Acción para eliminar una foto
-export const deletePhoto = (photoId) => async (dispatch, getState) => {
+export const deletePhoto = (id_user, id_photo) => async (dispatch, getState) => {
   try {
+    // Get the stored token from localStorage or another place
+    const token = localStorage.getItem('authToken');
 
-    const token = localStorage.getItem('authToken'); // Recupera el token del localStorage
-    console.log("Token  de local:", token); // Verificar si el token es correcto
-    
-    const response = await axios.delete(`${rutaBack}/photos/delete`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      },
-      data: {
-        id_user: getState().users.userPublicInfo.auth0Id, // Usa el id del usuario actual
-        id_photo: photoId,
+    if (!token) {
+      throw new Error('No authorization token found');
+    }
+
+    console.log("id user:",id_user,"idPhoto", id_photo,"token:",token)
+    // Make the DELETE request with the authorization header
+    const response = await axios.delete(
+      `${rutaBack}/photos/delete`, 
+      {
+        headers: {
+          Authorization: `Bearer ${token}`, // Send the token in the Authorization header
+        },
+        data: {
+          id_user, id_photo, // Send the photoId in the request body if needed
+        }
       }
-    });
+    );
 
-    // Actualiza el estado después de eliminar la foto
-    dispatch({
-      type: DELETE_PHOTO,
-      payload: photoId,
-    });
+    // // Dispatch the delete action in Redux
+    // dispatch({
+    //   type: 'DELETE_PHOTO',
+    //   payload: photoId,
+    // });
 
   } catch (error) {
     console.error('Error deleting photo:', error);
