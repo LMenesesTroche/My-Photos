@@ -17,7 +17,7 @@ const deletePhoto = async ({ id_user, id_photo }) => {
   const findPhoto = await photos.findOne({
     where: {
       id_photos: id_photo, // Asegúrate de usar el campo correcto para el id de la foto
-      userId: foundUser.id, // Verifica que el usuario sea el propietario de la foto
+      id_user: foundUser.id_user, // Ahora usar `userId` correctamente
     },
   });
 
@@ -26,12 +26,11 @@ const deletePhoto = async ({ id_user, id_photo }) => {
     throw new Error("Photo not found or you are not the owner");
   }
 
-  
   // Eliminar la foto si todas las validaciones anteriores son correctas
   const destroy = await photos.destroy({
     where: {
       id_photos: id_photo,
-      userId: foundUser.id, 
+      id_user: foundUser.id_user, 
     },
   });
 

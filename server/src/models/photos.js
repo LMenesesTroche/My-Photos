@@ -1,6 +1,7 @@
 const { DataTypes } = require('sequelize');
 
-//This is the model where we keep the payments info
+// Definir el modelo 'photos'
+// Modelo 'photos'
 module.exports = (sequelize) => {
   sequelize.define('photos', {
     id_photos: {
@@ -16,7 +17,13 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    // Cambiar 'userId' a 'id_user' para que coincida con la relación
+    id_user: {
+      type: DataTypes.STRING,
+      allowNull: false, // No puede ser nulo
+    },
   }, { 
     timestamps: false,
   });
 };
+

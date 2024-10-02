@@ -16,8 +16,9 @@ const postPhoto = async ({ id_user, highUrl, lowUrl }) => {
   const newPhoto = await photos.create({
     highUrl,
     lowUrl,
-    id_user: foundUser.id_user, // Usar id_user como clave foránea
+    id_user: foundUser.id_user, // Usar 'id_user' como clave foránea
   });
+  
   return newPhoto;
 };
 
