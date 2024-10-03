@@ -16,18 +16,13 @@ const Navbar = () => {
         const storeToken = async () => {
             if (isAuthenticated) {
                 try {
-                    // const token = await getAccessTokenSilently({
-                    //     audience: 'YOUR_AUTH0_API_AUDIENCE', // Reemplazar con el audience correcto
-                    //     scope: 'read:current_user' // O cualquier otro scope que necesites
-                    // });
-                    // console.log("Token obtenido:", token); // Verifica que el token tenga el formato JWT correcto
-                    // localStorage.setItem('authToken', token);
-
                     // Envía la información del usuario y espera el token JWT del backend
+                    console.log("Esto le mando al back para crear:",user)
                     const response = await axios.post(`${rutaBack}/users/api`, user);
                     localStorage.setItem('authToken', response.data.token); // Almacena el JWT recibido
-                    console.log("Este es el token del back",response.data.token)
-                    // console.log("Esto  esta en localStorage")
+
+                    // console.log("Este es el token del back", localStorage.getItem('authToken'))
+                    
                 } catch (error) {
                     console.error("Error getting or storing token:", error);
                 }

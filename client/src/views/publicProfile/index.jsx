@@ -17,6 +17,7 @@ const PublicProfile = () => {
   const [rotateRight, setRotateRight] = useState(true);
   const [showButtons, setShowButtons] = useState(true);
   const [imageClass, setImageClass] = useState("modal-content");
+  const { user } = useAuth0();
 
   const isLargeScreen = useMedia({ minWidth: 768 });
 
@@ -125,7 +126,7 @@ const PublicProfile = () => {
               />
               <button 
                 className="delete-button" 
-                onClick={() => handleDeletePhoto(photo.id_photos,userPublicInfo.id_user)}
+                onClick={() => handleDeletePhoto(userPublicInfo.auth0Id,photo.id_photos)}
               >
                 <AiFillDelete />
               </button>
