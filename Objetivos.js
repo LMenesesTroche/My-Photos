@@ -22,8 +22,5 @@ Justo ahora no funciona porque creo que el id que estoy mandando sdesde el front
 
 3X8SN3Q397XSL
 d48a552b-740b-4783-81f0-aa4b3e8d5c6f
-Codigo de HOLJUF
-jlksdjfkjdfeoij23092dj3923d2
-8943uf439r94304r9049ri4
-54fg65fer4erf545rf64rfe545
+
 */
