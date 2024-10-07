@@ -43,7 +43,7 @@ export const deletePhoto = (id_user, id_photo) => async (dispatch, getState) => 
       throw new Error('No authorization token found');
     }
 
-    console.log("TODO ESTO MANDO DESDE EL BACK PARA ELIMINAR id user:",id_user,"idPhoto", id_photo,"token:",token)
+    // console.log("TODO ESTO MANDO DESDE EL BACK PARA ELIMINAR id user:",id_user,"idPhoto", id_photo,"token:",token)
     
     const response = await axios.delete(
       `${rutaBack}/photos/delete`, 

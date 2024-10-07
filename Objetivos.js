@@ -15,10 +15,7 @@ el boton profile de nav debe dirigir a mi portafolio
 Antes de que aparezca la imagen en upload debe salir una barra de carga
 
 ! EN PROCESO DE BOTON DELETE
-?Estoy creando mi propio token desde el back 
-Justo ahora no funciona porque creo que el id que estoy mandando sdesde el front no coincide con el que revisa 
-(Si es eso, acabo de revisar el find or create y crea con el id del auth0)
-
+Falta eliminarlo del cloudinary
 
 3X8SN3Q397XSL
 d48a552b-740b-4783-81f0-aa4b3e8d5c6f

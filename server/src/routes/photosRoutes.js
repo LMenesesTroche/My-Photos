@@ -33,7 +33,6 @@ photosRoutes.post("/new", async (req, res) => {
 photosRoutes.delete("/delete", checkJwt, async (req, res) => {
     try {
         const { id_user, id_photo } = req.body;
-        console.log("Id user:",id_user,"Id photo", id_photo)
         // Verifica el token JWT para asegurarse de que el usuario está autenticado
         const userIdFromToken = req.auth.id; // Extrae el ID del usuario del payload del token
 

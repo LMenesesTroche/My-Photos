@@ -1,44 +1,48 @@
 const { photos, user } = require("../../db");
+const cloudinary = require("cloudinary").v2;
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 const deletePhoto = async ({ id_user, id_photo }) => {
-  // Buscar el usuario basado en el id del Auth0
   const foundUser = await user.findOne({
-    where: {
-      auth0Id: id_user,
-    },
+    where: { auth0Id: id_user },
   });
 
-  // Si no se encuentra el usuario, lanzar un error
   if (!foundUser) {
     throw new Error("User not found");
   }
 
-  // Buscar la foto por id y que pertenezca al usuario
   const findPhoto = await photos.findOne({
-    where: {
-      id_photos: id_photo, // Asegúrate de usar el campo correcto para el id de la foto
-      id_user: foundUser.id_user, // Ahora usar `userId` correctamente
-    },
+    where: { id_photos: id_photo, id_user: foundUser.id_user },
   });
 
-  // Si no se encuentra la foto o no pertenece al usuario, lanzar un error
   if (!findPhoto) {
     throw new Error("Photo not found or you are not the owner");
   }
 
-  // Eliminar la foto si todas las validaciones anteriores son correctas
+  // Extraer el public_id de la URL
+  const cloudinaryPublicId = findPhoto.highUrl.split("/upload/")[1].split("/").slice(1).join("/").split(".")[0];
+  // console.log("Esto es el cloudinaryPublicId:", cloudinaryPublicId);
+
+  try {
+    await cloudinary.uploader.destroy(cloudinaryPublicId); // Elimina la imagen de Cloudinary
+  } catch (error) {
+    console.error("Cloudinary deletion error:", error);
+    throw new Error("Failed to delete photo from Cloudinary");
+  }
+
   const destroy = await photos.destroy({
-    where: {
-      id_photos: id_photo,
-      id_user: foundUser.id_user, 
-    },
+    where: { id_photos: id_photo, id_user: foundUser.id_user },
   });
 
-  // Confirmar eliminación
   if (destroy) {
     return { message: "Deleted successfully" };
   } else {
-    throw new Error("Failed to delete photo");
+    throw new Error("Failed to delete photo from the database");
   }
 };
 

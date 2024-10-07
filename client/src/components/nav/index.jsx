@@ -17,7 +17,7 @@ const Navbar = () => {
             if (isAuthenticated) {
                 try {
                     // Envía la información del usuario y espera el token JWT del backend
-                    console.log("Esto le mando al back para crear:",user)
+                    // console.log("Esto le mando al back para crear:",user)
                     const response = await axios.post(`${rutaBack}/users/api`, user);
                     localStorage.setItem('authToken', response.data.token); // Almacena el JWT recibido
 
