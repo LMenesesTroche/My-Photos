@@ -12,7 +12,7 @@
 9.- deploy
 7.-Poder acomodar las imagenes
 
-el boton profile de nav debe dirigir a mi portafolio
+Boton de borrar solo si es mi perfil 
 Antes de que aparezca la imagen en upload debe salir una barra de carga
 
 
