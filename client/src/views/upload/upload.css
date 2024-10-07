@@ -35,4 +35,72 @@
     border-radius: 5px;
     margin-top: 20px;
   }
+   
+  .uploaded-image {
+    transition: filter 0.5s ease; /* Transición suave al eliminar el desenfoque */
+  }
+  
+  .uploaded-image.loading {
+    filter: blur(20px);  /* Aplica desenfoque mientras se carga */
+  }
+  
+  .uploaded-image.loaded {
+    filter: none;  /* Elimina el desenfoque cuando la imagen se carga completamente */
+  }
+  .image-container {
+    position: relative;
+    max-width: 50vh;
+  }
+  
+  .skeleton-loader {
+    background: #e0e0e0;
+    height: 50vh;
+    width: 100%;
+    animation: shimmer 2s infinite linear;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+  }
+  
+  @keyframes shimmer {
+    0% {
+      background-position: -40rem 0;
+    }
+    100% {
+      background-position: 40rem 0;
+    }
+  }
+  
+  .uploaded-image {
+    transition: filter 0.5s ease; /* Transición suave al eliminar el desenfoque */
+    display: none; /* Ocultar por defecto */
+  }
+  
+  .uploaded-image.loading {
+    filter: blur(20px);  /* Aplica desenfoque mientras se carga */
+    display: block;
+  }
+  
+  .uploaded-image.loaded {
+    filter: none;  /* Elimina el desenfoque cuando la imagen se carga completamente */
+    display: block;
+  }
+  
+  .spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #3b82f6;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
   

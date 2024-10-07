@@ -12,9 +12,6 @@
 9.- deploy
 7.-Poder acomodar las imagenes
 
-Boton de borrar solo si es mi perfil 
-Antes de que aparezca la imagen en upload debe salir una barra de carga
-
 
 3X8SN3Q397XSL
 d48a552b-740b-4783-81f0-aa4b3e8d5c6f

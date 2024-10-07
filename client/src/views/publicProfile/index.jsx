@@ -18,9 +18,6 @@ const PublicProfile = () => {
   const [showButtons, setShowButtons] = useState(true);
   const [imageClass, setImageClass] = useState("modal-content");
   const { user, isAuthenticated } = useAuth0();
-
-  console.log("isAutentcaded", isAuthenticated, "User", user);
-
   const isLargeScreen = useMedia({ minWidth: 768 });
 
   useEffect(() => {
@@ -49,6 +46,7 @@ const PublicProfile = () => {
   if (isAuthenticated && user.sub === id) {
     isThisTheOwnerOfThePhoto = true;
   }
+
   const handlePhotoClick = (photo) => {
     setSelectedPhoto(photo);
     setRotation(0);
@@ -127,27 +125,30 @@ const PublicProfile = () => {
       </div>
       <div className="gallery">
         {userPublicInfo.photos &&
-          userPublicInfo.photos.map((photo) => (
-            <div key={photo.id_photos} className="photo-item">
-              <LazyLoadImage
-                src={photo.lowUrl} // Usa lowUrl para la vista previa en la galería
-                className="gallery-photo"
-                alt={`Foto ${photo.id_photos}`}
-                onClick={() => handlePhotoClick(photo)}
-                effect="blur"
-              />
-              {isThisTheOwnerOfThePhoto ? (
-                <button
-                  className="delete-button"
-                  onClick={() =>
-                    handleDeletePhoto(userPublicInfo.auth0Id, photo.id_photos)
-                  }
-                >
-                  <AiFillDelete />
-                </button>
-              ) : null}
-            </div>
-          ))}
+          userPublicInfo.photos
+            .slice()
+            .reverse()
+            .map((photo) => (
+              <div key={photo.id_photos} className="photo-item">
+                <LazyLoadImage
+                  src={photo.lowUrl} // Usa lowUrl para la vista previa en la galería
+                  className="gallery-photo"
+                  alt={`Foto ${photo.id_photos}`}
+                  onClick={() => handlePhotoClick(photo)}
+                  effect="blur"
+                />
+                {isThisTheOwnerOfThePhoto ? (
+                  <button
+                    className="delete-button"
+                    onClick={() =>
+                      handleDeletePhoto(userPublicInfo.auth0Id, photo.id_photos)
+                    }
+                  >
+                    <AiFillDelete />
+                  </button>
+                ) : null}
+              </div>
+            ))}
       </div>
       {selectedPhoto && (
         <div
