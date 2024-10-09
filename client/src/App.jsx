@@ -7,6 +7,7 @@ import Upload from "./views/upload";
 import UserData from "./views/profile/index";
 import AllUsers from "./views/allUsers";
 import PublicProfile from "./views/publicProfile";
+import Dashboard from "./views/dashboard";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/userData" element={<UserData />} />
         <Route path="/allUsers" element={<AllUsers />} />
         <Route path="/profile/:id" element={<PublicProfile />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
       <Footer />
     </div>

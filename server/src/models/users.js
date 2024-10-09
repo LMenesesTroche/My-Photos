@@ -26,7 +26,7 @@ module.exports = (sequelize) => {
     },
     hasPaid: {
       type: DataTypes.BOOLEAN,
-      defaultValue: true,
+      defaultValue: false,
       allowNull: false,
     }
   }, { 
