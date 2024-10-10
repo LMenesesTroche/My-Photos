@@ -1,9 +1,17 @@
-import { GET_USERS, USER_PUBLIC_INFO, DELETE_PHOTO, USER_HAS_PAID } from "../actions/users";
+import {
+  GET_USERS,
+  USER_PUBLIC_INFO,
+  DELETE_PHOTO,
+  USER_HAS_PAID,
+} from "../actions/users";
+import{
+  USER_WAS_FORGIVEN
+} from "../actions/payments"
 
 const initialState = {
   allUsers: [],
   userPublicInfo: null,
-  hasPaid:false,
+  hasPaid: false,
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -25,6 +33,13 @@ const usersReducer = (state = initialState, action) => {
       };
     case USER_HAS_PAID:
       return { ...state, hasPaid: payload };
+      case USER_WAS_FORGIVEN:
+        return {
+          ...state,
+          allUsers: state.allUsers.map(user =>
+            user.auth0Id === payload ? { ...user, hasPaid: true } : user
+          ),
+        };  
     default:
       return state;
   }

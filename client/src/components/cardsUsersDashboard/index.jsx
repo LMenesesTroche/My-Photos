@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./cardsUsersDashboard.modules.css"; // Asegúrate de tener este archivo de CSS.
+import "./cardsUsersDashboard.modules.css";
 import { forgivePaymentByUserId } from "../../redux/actions/payments";
 import { useDispatch } from "react-redux";
+import Swal from "sweetalert2"; // Importa SweetAlert2
 
 const CardsUsersDashboard = ({ allUsers }) => {
   const sortedUsers = allUsers?.sort((a, b) => a.name.localeCompare(b.name));
@@ -10,8 +11,21 @@ const CardsUsersDashboard = ({ allUsers }) => {
 
   // Función para "perdonar" el pago
   const forgivePayment = (auth0Id) => {
-    console.log(`Perdonar pago para el usuario con ID: ${auth0Id}`);
-    dispatch(forgivePaymentByUserId(auth0Id));
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "Esta acción no se puede deshacer.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, perdonar pago',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Si se confirma, se despacha la acción para perdonar el pago
+        dispatch(forgivePaymentByUserId(auth0Id));
+      }
+    });
   };
 
   return (
@@ -28,7 +42,7 @@ const CardsUsersDashboard = ({ allUsers }) => {
           </Link>
 
           <p className={`payment-status ${user.hasPaid ? "paid" : "unpaid"}`}>
-            {user.hasPaid ? "Pagado" : "Pendiente de Pago"}
+            {user.hasPaid ? "Payed up" : "Pending Payment"}
           </p>
 
           {!user.hasPaid && (
@@ -36,7 +50,7 @@ const CardsUsersDashboard = ({ allUsers }) => {
               className="forgive-btn"
               onClick={() => forgivePayment(user.auth0Id)}
             >
-              Perdonar Pago
+              Forgive payment
             </button>
           )}
         </div>

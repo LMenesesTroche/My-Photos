@@ -11,12 +11,14 @@
 7.- Muuuuy bonito
 9.- deploy
 7.-Poder acomodar las imagenes
+8.- Bloquear usuario? 
 
-!En proceso de hacer el dashboard 
+? En proceso de hacer el dashboard 
 Ponerle proteccion especial en el back al hacer las peticiones de administrador  
-?falta hacer el redux reducer al perdonar el pago, ya esta hecho desde el back 
+Agregar opcion bloquear usuario
+!arreglar el bug de que se puede subir cualquier cosa
 
-
+si no pago que salga un cartelito en la seccion de perfil que diga que debe pagar para poder subir sus fotos 
 3X8SN3Q397XSL
 d48a552b-740b-4783-81f0-aa4b3e8d5c6f
 
