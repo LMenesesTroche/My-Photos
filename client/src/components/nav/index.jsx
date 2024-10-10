@@ -36,10 +36,8 @@ const Navbar = () => {
         user.sub === import.meta.env.VITE_APP_ADMIN_AUTH0_ID
       ) {
         setIsAuthorized(true); // Usuario autorizado
-        console.log("Autorizado");
       } else {
         setIsAuthorized(false); // Usuario no autorizado
-        console.log("No autorizado");
       }
     }
   }, [isAuthenticated, user]);

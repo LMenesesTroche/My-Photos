@@ -57,7 +57,6 @@ export const deletePhoto =
       });
 
       if (response.data.message === "Deleted successfully") {
-        
         // Dispatch the delete action in Redux
         dispatch({
           type: "DELETE_PHOTO",

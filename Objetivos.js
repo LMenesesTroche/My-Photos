@@ -12,6 +12,10 @@
 9.- deploy
 7.-Poder acomodar las imagenes
 
+!En proceso de hacer el dashboard 
+Ponerle proteccion especial en el back al hacer las peticiones de administrador  
+?falta hacer el redux reducer al perdonar el pago, ya esta hecho desde el back 
+
 
 3X8SN3Q397XSL
 d48a552b-740b-4783-81f0-aa4b3e8d5c6f
