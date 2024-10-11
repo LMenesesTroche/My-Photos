@@ -1,22 +1,36 @@
-import rutaBack from "./rutaBack";
 import axios from "axios";
-export const LOGIN_SUCCESS = "REGISTER_SUCCESS";
-export const LOGOUT = "LOGOUT";
-export const GET_USER_INFO_SUCCESS = "GET_USER_INFO_SUCCESS";
+import rutaBack from "./rutaBack";
+export const STORE_TOKEN = "STORE_TOKEN";
+export const SET_AUTHORIZATION = "SET_AUTHORIZATION";
+export const REMOVE_TOKEN = "REMOVE_TOKEN";
 
-export const getUserNumber = () => async (dispatch) => {
-  const token = localStorage.getItem("token");
-
-  if (token) {
-    try {
-      const response = await axios.get(`${rutaBack}/users/getNumber`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      //Seteamos el numero en localstorage si nos autorizaron 
-      localStorage.setItem("number", response.data);
-
-    } catch (error) {
-      console.log(error);
-    }
+// Action to store token for authenticated users
+export const storeAuthToken = (user) => async (dispatch) => {
+  try {
+    const response = await axios.post(`${rutaBack}/users/api`, user); // API call to get the token
+    const token = response.data.token;
+    
+    // Dispatch token to the store if needed
+    dispatch({ type: STORE_TOKEN, payload: token });
+    
+    // Save token to localStorage
+    localStorage.setItem("authToken", token);
+  } catch (error) {
+    console.error("Error storing token:", error);
   }
+};
+
+// Action to remove token from localStorage when unauthenticated
+export const removeAuthToken = () => (dispatch) => {
+  localStorage.removeItem("authToken");
+  dispatch({ type: REMOVE_TOKEN });
+};
+
+// Action to check if the user is authorized (admin)
+export const checkAuthorization = (user) => (dispatch) => {
+  const isAuthorized = 
+    user.email === import.meta.env.VITE_APP_ADMIN_EMAIL && 
+    user.sub === import.meta.env.VITE_APP_ADMIN_AUTH0_ID;
+
+  dispatch({ type: SET_AUTHORIZATION, payload: isAuthorized });
 };

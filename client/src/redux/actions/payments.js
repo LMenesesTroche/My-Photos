@@ -8,12 +8,14 @@ export const USER_WAS_FORGIVEN = "USER_WAS_FORGIVEN";
 export const forgivePaymentByUserId = (auth0Id) => {
   return async (dispatch) => {
     try {
-      let response = await axios.post(`${rutaBack}/payments/forgive-user`, {
-        auth0Id: auth0Id,
-      });
+      const adminToken = localStorage.getItem("authToken");
+      let response = await axios.post(`${rutaBack}/payments/forgive-user`, 
+        { auth0Id: auth0Id },
+        { headers: { Authorization: `Bearer ${adminToken}` }}  // Espacio agregado entre Bearer y el token
+      );
 
       if (response.data.message === "Forgiven succesfully") {
-        toast.success("The User was forgiven succesfully");
+        toast.success("The User was forgiven successfully");
 
         return dispatch({
           type: USER_WAS_FORGIVEN,
@@ -21,8 +23,8 @@ export const forgivePaymentByUserId = (auth0Id) => {
         });
       }
     } catch (error) {
-      console.log("Error en actions get all Users", error);
-      toast.error("There was an error while forgivin");
+      console.log("Error en actions forgive user", error);
+      toast.error("There was an error while forgiving");
     }
   };
 };

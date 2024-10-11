@@ -8,6 +8,7 @@ cloudinary.config({
 });
 
 const deletePhoto = async ({ id_user, id_photo }) => {
+  // Verificar si el usuario existe
   const foundUser = await user.findOne({
     where: { auth0Id: id_user },
   });
@@ -16,6 +17,7 @@ const deletePhoto = async ({ id_user, id_photo }) => {
     throw new Error("User not found");
   }
 
+  // Buscar la foto asociada al usuario
   const findPhoto = await photos.findOne({
     where: { id_photos: id_photo, id_user: foundUser.id_user },
   });
@@ -24,24 +26,37 @@ const deletePhoto = async ({ id_user, id_photo }) => {
     throw new Error("Photo not found or you are not the owner");
   }
 
-  // Extraer el public_id de la URL
-  const cloudinaryPublicId = findPhoto.highUrl.split("/upload/")[1].split("/").slice(1).join("/").split(".")[0];
-  // console.log("Esto es el cloudinaryPublicId:", cloudinaryPublicId);
-
+  // Extraer el public_id de la URL de Cloudinary
+  let cloudinaryPublicId;
   try {
-    await cloudinary.uploader.destroy(cloudinaryPublicId); // Elimina la imagen de Cloudinary
+    cloudinaryPublicId = findPhoto.highUrl.split("/upload/")[1].split("/").slice(1).join("/").split(".")[0];
+
+  } catch (error) {
+    console.error("Error extracting Cloudinary public_id:", error);
+    throw new Error("Failed to extract Cloudinary public_id");
+  }
+
+  // Intentar eliminar la foto de Cloudinary
+  try {
+    await cloudinary.uploader.destroy(cloudinaryPublicId);
   } catch (error) {
     console.error("Cloudinary deletion error:", error);
     throw new Error("Failed to delete photo from Cloudinary");
   }
 
-  const destroy = await photos.destroy({
-    where: { id_photos: id_photo, id_user: foundUser.id_user },
-  });
+  // Eliminar la foto de la base de datos
+  try {
+    const destroy = await photos.destroy({
+      where: { id_photos: id_photo, id_user: foundUser.id_user },
+    });
 
-  if (destroy) {
+    if (!destroy) {
+      throw new Error("Failed to delete photo from the database");
+    }
+
     return { message: "Deleted successfully" };
-  } else {
+  } catch (error) {
+    console.error("Database deletion error:", error);
     throw new Error("Failed to delete photo from the database");
   }
 };

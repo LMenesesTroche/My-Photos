@@ -1,34 +1,44 @@
 const { user } = require("../../db");
-const jwt = require("jsonwebtoken"); // Importar jsonwebtoken
+const jwt = require("jsonwebtoken"); // Import jsonwebtoken
 
-const JWT_SECRET = process.env.JWT_SECRET; // Asegúrate de usar una clave segura en producción
+const JWT_SECRET = process.env.JWT_SECRET; // Ensure to use a secure key in production
+const ADMIN_AUTH0_ID = process.env.ADMIN_AUTH0_ID;
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
 
 const findOrCreateUser = async (data) => {
-  const { sub, email, name, picture } = data; // Sacamos la info
+  const { sub, email, name, picture } = data; // Extract necessary info
   const auth0Id = sub;
-  console.log("Esto es auth0Id", auth0Id);
-  // Verificar si ya existe un usuario con el mismo auth0Id
+
+  // Check if a user with the same auth0Id already exists
   const existingUser = await user.findOne({
     where: {
       auth0Id,
     },
   });
 
-  //todo Creo que a aqui esta el error
-  // Generar el token JWT siempre con el auth0Id
-  const token = jwt.sign({ id: auth0Id }, JWT_SECRET, {
-    expiresIn: "1h", // Expira en 1 hora
-  });
+  let token;
 
-  // console.log("Este es el token que se genera desde el back:",token)
-
-  if (existingUser) {
-    return { message: "The account already created", token };
+  // Special condition for admin user
+  if (auth0Id === ADMIN_AUTH0_ID && email === ADMIN_EMAIL) {
+    // Generate a special admin token
+    token = jwt.sign({ id: auth0Id, role: 'admin' }, JWT_SECRET, {
+      expiresIn: "2h", // Admin token expires in 2 hours
+    });
+  } else {
+    // Generate a standard token for regular users
+    token = jwt.sign({ id: auth0Id }, JWT_SECRET, {
+      expiresIn: "1h", // Expires in 1 hour
+    });
   }
 
+  if (existingUser) {
+    return { message: "The account already exists", token };
+  }
+
+  // Create a new user if none exists
   const nuevoUsuario = await user.create({ auth0Id, email, name, picture });
 
-  return { nuevoUsuario, token }; // Retornar el nuevo usuario y el token
+  return { nuevoUsuario, token }; // Return the new user and token
 };
 
 module.exports = findOrCreateUser;

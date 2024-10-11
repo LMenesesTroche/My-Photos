@@ -32,33 +32,35 @@ photosRoutes.post("/new", async (req, res) => {
 
 photosRoutes.delete("/delete", checkJwt, async (req, res) => {
     try {
-        const { id_user, id_photo } = req.body;
-        // Verifica el token JWT para asegurarse de que el usuario está autenticado
-        const userIdFromToken = req.auth.id; // Extrae el ID del usuario del payload del token
-
-        if (!id_user || !id_photo) {
-          console.log("Missing data")
-            return res.status(400).json({ error: "Missing data" });
-        }
-        if (typeof id_user !== "string" || typeof id_photo !== "string") {
-          console.log("Invalid data")
-            return res.status(400).json({ error: "Invalid data type" });
-        }
-
-        // Asegúrate de que el usuario autenticado sea el dueño de la foto
-        if (id_user !== userIdFromToken) {
-          console.log("user not authorize to delete this photo")
-            return res
-                .status(403)
-                .json({ error: "Not authorized to delete this photo" });
-        }
-
-        const message = await deletePhoto({ id_user, id_photo });
-        res.status(200).json(message);
+      const { id_user, id_photo } = req.body;
+      
+      // Extrae el ID del usuario del token JWT
+      const userIdFromToken = req.auth.id; // Asegúrate de que checkJwt almacena correctamente `req.auth`
+  
+      // Validaciones
+      if (!id_user || !id_photo) {
+        console.log("Missing data");
+        return res.status(400).json({ error: "Missing data" });
+      }
+      if (typeof id_user !== "string" || typeof id_photo !== "string") {
+        console.log("Invalid data");
+        return res.status(400).json({ error: "Invalid data type" });
+      }
+  
+      // Asegúrate de que el usuario autenticado sea el dueño de la foto
+      if (id_user !== userIdFromToken) {
+        console.log("User not authorized to delete this photo");
+        return res.status(403).json({ error: "Not authorized to delete this photo" });
+      }
+  
+      // Llama a la función que elimina la foto
+      const message = await deletePhoto({ id_user, id_photo });
+      res.status(200).json(message);
     } catch (error) {
-        console.error("Error deleting photo:", error);
-        res.status(500).json({ error: "Error deleting photo" });
+      console.error("Error deleting photo:", error);
+      res.status(500).json({ error: "Error deleting photo" });
     }
-});
+  });
+  
 
 module.exports = photosRoutes;

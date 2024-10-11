@@ -80,7 +80,7 @@ export const userHasPaidById = (id) => {
         payload: response.data,
       });
     } catch (error) {
-      console.log("error en actions get user by id", error);
+      console.log("error en actions userHasPaidById", error);
     }
   };
 };

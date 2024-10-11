@@ -7,6 +7,9 @@ import { uploadBack } from "../../redux/actions/photos";
 import PayPalButton from "../../components/paypal";
 import { userHasPaidById } from "../../redux/actions/users";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; // Importa los estilos de Toastify
+import Swal from "sweetalert2"; // Importa SweetAlert2
 
 export default function Upload() {
   const [uploading, setUploading] = useState(false);
@@ -25,13 +28,31 @@ export default function Upload() {
   }, [dispatch, user, isAuthenticated]);
 
   const handleFileChange = async (event) => {
-    if (!hasPaid) {
-      alert("Please pay $10 via PayPal before uploading images.");
-      return;
-    }
 
     const selectedFile = event.target.files[0];
-    if (!selectedFile) return;
+    
+    if (!selectedFile || !selectedFile.type.startsWith("image/")) {
+      // toast.error("Please upload a valid image file (jpg, png, etc.).");
+
+      Swal.fire({
+        title: 'Must select a valid file type',
+        text: "(jpg, png, etc.).",
+        icon: 'warning',
+        showCancelButton: false,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ok',
+        // cancelButtonText: 'Cancelar',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Si se confirma, se despacha la acción para perdonar el pago
+          dispatch(forgivePaymentByUserId(auth0Id));
+        }
+      });
+
+
+      return;
+    }
 
     setUploading(true);
     setProgress(0); // Resetea el progreso

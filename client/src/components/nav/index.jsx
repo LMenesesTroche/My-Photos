@@ -1,46 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import "./nav.css";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { useAuth0 } from "@auth0/auth0-react";
+import { storeAuthToken, removeAuthToken, checkAuthorization } from "../../redux/actions/auth";
 import LoginButtonAuth0 from "../loginButton";
 import LogOutButtonAuth0 from "../logoutButton";
-import { useAuth0 } from "@auth0/auth0-react";
-import rutaBack from "../../redux/actions/rutaBack";
+import "./nav.css";
 
 const Navbar = () => {
-  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
-  const [isAuthorized, setIsAuthorized] = useState(false); // Nuevo estado para controlar si está autorizado
+  const { user, isAuthenticated } = useAuth0();
+  const dispatch = useDispatch();
+  const isAuthorized = useSelector(state => state.auth.isAuthorized);
 
-  // Enviar la información del usuario al backend cuando el usuario está autenticado
-  useEffect(() => {
-    const storeToken = async () => {
-      if (isAuthenticated) {
-        try {
-          const response = await axios.post(`${rutaBack}/users/api`, user);
-          localStorage.setItem("authToken", response.data.token); // Almacena el JWT recibido
-        } catch (error) {
-          console.error("Error getting or storing token:", error);
-        }
-      } else {
-        localStorage.removeItem("authToken");
-      }
-    };
-    storeToken();
-  }, [isAuthenticated, getAccessTokenSilently, user]);
-
-  // Verificar si el usuario está autorizado
   useEffect(() => {
     if (isAuthenticated) {
-      if (
-        user.email === import.meta.env.VITE_APP_ADMIN_EMAIL &&
-        user.sub === import.meta.env.VITE_APP_ADMIN_AUTH0_ID
-      ) {
-        setIsAuthorized(true); // Usuario autorizado
-      } else {
-        setIsAuthorized(false); // Usuario no autorizado
-      }
+      dispatch(storeAuthToken(user)); // Hacemos dispatch para guardar el token 
+      dispatch(checkAuthorization(user)); // Verificamos si es que el usuario es el admin
+    } else {
+      dispatch(removeAuthToken()); // Eliminamos token si no esta autenticado
     }
-  }, [isAuthenticated, user]);
+  }, [isAuthenticated, user, dispatch]);
 
   return (
     <nav className="navbar">
@@ -53,13 +32,11 @@ const Navbar = () => {
       </Link>
       <div className="navbar-links">
         <Link to="/">Home</Link>
-        {isAuthenticated ? (
-          <Link to={`/profile/${user.sub}`}>Profile</Link>
-        ) : null}
-        {isAuthenticated ? <Link to="/upload">Upload</Link> : null}
+        {isAuthenticated && <Link to={`/profile/${user.sub}`}>Profile</Link>}
+        {isAuthenticated && <Link to="/upload">Upload</Link>}
         <Link to="/allUsers">All users</Link>
         {isAuthenticated ? <LogOutButtonAuth0 /> : <LoginButtonAuth0 />}
-        {isAuthorized ? <Link to="/dashboard">Dashboard</Link> : null} 
+        {isAuthorized && <Link to="/dashboard">Dashboard</Link>}
       </div>
     </nav>
   );

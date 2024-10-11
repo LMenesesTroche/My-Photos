@@ -8,7 +8,7 @@ const AllUsersCards = ({ allUsers }) => {
   return (
     <div>
       {sortedUsers?.map((user) => (
-        <div key={user.id} style={{ border: '1px solid #ccc', padding: '10px', margin: '10px', textAlign: 'center' }}>
+        <div key={user.auth0Id} style={{ border: '1px solid #ccc', padding: '10px', margin: '10px', textAlign: 'center' }}>
           <Link to={`/profile/${user.auth0Id}`} style={{ textDecoration: 'none', color: 'black' }}>
             <img 
               src={user.picture} 
