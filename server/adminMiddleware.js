@@ -6,14 +6,14 @@ const verifyAdmin = (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1];
 
   if (!token) {
-    return res.status(401).json({ message: "No token provided" });
+    throw new Error("No token provided")    
   }
 
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
 
     if (decoded.role !== "admin") {
-      return res.status(403).json({ message: "Access denied. Admins only" });
+      throw new Error("Access denied. Admins only.")
     }
 
     next(); // Usuario es admin, continuar con la solicitud

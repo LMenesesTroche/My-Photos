@@ -1,5 +1,6 @@
 import rutaBack from "./rutaBack";
 import axios from "axios";
+import Swal from 'sweetalert2';
 
 export const GET_USERS = "GET_USERS";
 export const USER_PUBLIC_INFO = "USER_PUBLIC_INFO";
@@ -81,6 +82,66 @@ export const userHasPaidById = (id) => {
       });
     } catch (error) {
       console.log("error en actions userHasPaidById", error);
+    }
+  };
+};
+
+export const blockUser = (auth0Id) => {
+  return async (dispatch) => {
+    try {
+      const token = localStorage.getItem("authToken");
+      // console.log("Este es el token que mando al back:", token)
+
+      let response = await axios.post(`${rutaBack}/users/block-user`, 
+        { userId: auth0Id },
+        { headers: { Authorization: `Bearer ${token}` }} 
+      );
+
+      // console.log("Este es el response del back:",response.data)
+      Swal.fire('Usuario bloqueado', '', 'success');
+
+      // if(response.data.message === "The user has been blocked succesfully"){
+      //   // console.log("Positivo")
+      //   return dispatch({
+      //     type: USER_BLOCKED,
+      //     payload: auth0Id,
+      //   });
+      // }
+
+    } catch (error) {
+      console.log("Error en actions: block user", error);
+      Swal.fire('Error al bloquear usuario', '', 'error');
+
+    }
+  };
+};
+
+export const unblockUser = (auth0Id) => {
+  return async (dispatch) => {
+    try {
+      const token = localStorage.getItem("authToken");
+      // console.log("Este es el token que mando al back:", token)
+
+      let response = await axios.post(`${rutaBack}/users/unblock-user`, 
+        { userId: auth0Id },
+        { headers: { Authorization: `Bearer ${token}` }} 
+      );
+
+      // console.log("Este es el response del back:",response.data)
+      Swal.fire('Usuario desbloqueado', '', 'success');
+
+      // if(response.data.message === "The user has been blocked succesfully"){
+      //   console.log("Positivo")
+      //   return dispatch({
+      //     type: USER_BLOCKED,
+      //     payload: auth0Id,
+      //   });
+      // }
+
+    } catch (error) {
+      console.log("Error en actions: unblock user", error);
+      Swal.fire('Error al desbloquear usuario', '', 'error');
+
     }
   };
 };

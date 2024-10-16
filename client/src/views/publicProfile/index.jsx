@@ -103,10 +103,14 @@ const PublicProfile = () => {
     }
   };
 
-  // console.log(userPublicInfo);
-
   if (!userPublicInfo) {
     return <div>Loading...</div>;
+  }
+
+  if (userPublicInfo && userPublicInfo.hasBeenBlocked == true) {
+    return (<div className="blocked-alert">
+      <p>This user has been blocked and cannot access the system.</p>
+    </div>);
   }
   return (
     <div className="landing-container">
@@ -123,6 +127,7 @@ const PublicProfile = () => {
           />
         </div>
       </div>
+
       <div className="gallery">
         {userPublicInfo.photos &&
           userPublicInfo.photos
@@ -150,6 +155,7 @@ const PublicProfile = () => {
               </div>
             ))}
       </div>
+
       {selectedPhoto && (
         <div
           className={`modal ${showButtons ? "" : "modal-black"}`}
@@ -166,10 +172,10 @@ const PublicProfile = () => {
                 </button>
               )}
               <button className="prev-button" onClick={handlePreviousPhoto}>
-                &lt; {/* Left Arrow */}
+                &lt;
               </button>
               <button className="next-button" onClick={handleNextPhoto}>
-                &gt; {/* Right Arrow */}
+                &gt;
               </button>
             </>
           )}

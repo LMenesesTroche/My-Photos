@@ -11,7 +11,7 @@ export const forgivePaymentByUserId = (auth0Id) => {
       const adminToken = localStorage.getItem("authToken");
       let response = await axios.post(`${rutaBack}/payments/forgive-user`, 
         { auth0Id: auth0Id },
-        { headers: { Authorization: `Bearer ${adminToken}` }}  // Espacio agregado entre Bearer y el token
+        { headers: { Authorization: `Bearer ${adminToken}` }} 
       );
 
       if (response.data.message === "Forgiven succesfully") {

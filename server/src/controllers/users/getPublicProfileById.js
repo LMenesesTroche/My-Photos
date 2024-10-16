@@ -11,7 +11,7 @@ const getPublicProfileById = async (id) => {
       },
     ],
   });
-
+  if(publicProfile.hasBeenBlocked === true) return {hasBeenBlocked:true};
   return publicProfile;
 };
 

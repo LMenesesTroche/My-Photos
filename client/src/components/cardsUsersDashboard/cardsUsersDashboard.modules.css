@@ -1,67 +1,82 @@
 .dashboard-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 20px;
-    background-color: #f4f4f4;
-  }
-  
-  .card {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    text-align: center;
-    transition: transform 0.3s ease;
-  }
-  
-  .card:hover {
-    transform: translateY(-5px);
-  }
-  
-  .profile-link {
-    text-decoration: none;
-    color: #333;
-  }
-  
-  .profile-img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    margin-bottom: 15px;
-  }
-  
-  .user-name {
-    font-size: 1.5em;
-    margin-bottom: 10px;
-    color: #333;
-  }
-  
-  .payment-status {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-    font-weight: bold;
-  }
-  
-  .payment-status.paid {
-    color: green;
-  }
-  
-  .payment-status.unpaid {
-    color: red;
-  }
-  
-  .forgive-btn {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .forgive-btn:hover {
-    background-color: #0056b3;
-  }
-  
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  background-color: #f4f4f4;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.profile-link {
+  text-decoration: none;
+  color: #333;
+}
+
+.profile-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+}
+
+.user-name {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.payment-status {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.payment-status.paid {
+  color: green;
+}
+
+.payment-status.unpaid {
+  color: red;
+}
+
+.forgive-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.forgive-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Estilo para usuarios bloqueados */
+.card.blocked {
+  background-color: #f8d7da; /* Color de fondo para usuario bloqueado */
+  border: 1px solid #f5c6cb;
+}
+
+.blocked-status {
+  color: #721c24;
+  font-weight: bold;
+}
+
+/* Estilo para botón deshabilitado */
+.card.blocked .forgive-btn {
+  display: none; /* Ocultar botón si el usuario está bloqueado */
+}

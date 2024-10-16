@@ -13,9 +13,13 @@ export default function Dashboard() {
     dispatch(getAllUsers());
   }, []);
 
+  // if (allUsers) {
+  //   console.log(allUsers);
+  // }
+
   return (
     <div className="container">
-      <h1>This is the dashboard</h1>      
+      <h1>This is the dashboard</h1>
       <CardsUsersDashboard allUsers={allUsers} />
     </div>
   );

@@ -4,6 +4,10 @@ const getAllUsers = require("../controllers/users/getAllUsers");
 const getPublicProfileById = require("../controllers/users/getPublicProfileById");
 const hasPaid = require("../controllers/users/hasPaid");
 const changeProfilePicture = require("../controllers/users/changeProfilePicture");
+const checkJwt = require("../../middleware");
+const verifyAdmin = require("../../adminMiddleware");
+const blockUser = require("../controllers/users/blockUser");
+const unblockUser = require("../controllers/users/unblockUser");
 
 const userRoutes = Router();
 
@@ -81,6 +85,39 @@ userRoutes.post("/change-profile-picture", async (req, res) => {
   } catch (error) {
     console.error("Error en la ruta change profile picture:", error.message);
     res.status(500).json({ error: error.message });
+  }
+});
+
+// Ruta protegida para blockear solo para administradores
+userRoutes.post("/block-user", checkJwt, verifyAdmin, async (req, res) => {
+  console.log("llego hasta aqui")
+  try {
+    const { userId } = req.body;
+
+    if (!userId) throw new Error("Missing data");    
+    if (typeof userId !== "string") throw new Error("Invalid data");
+
+    const message = await blockUser(userId);
+    res.status(200).json(message);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Error block user routes" });
+  }
+});
+
+// Ruta protegida para blockear solo para administradores(Desbloquear usuario)
+userRoutes.post("/unblock-user", checkJwt, verifyAdmin, async (req, res) => {
+  try {
+    const { userId } = req.body;
+
+    if (!userId) throw new Error("Missing data");    
+    if (typeof userId !== "string") throw new Error("Invalid data");
+
+    const message = await unblockUser(userId);
+    res.status(200).json(message);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Error block user routes" });
   }
 });
 
