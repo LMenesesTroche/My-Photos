@@ -5,7 +5,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch, useSelector } from "react-redux";
 import { uploadBack } from "../../redux/actions/photos";
 import PayPalButton from "../../components/paypal";
-import { userHasPaidById } from "../../redux/actions/users";
+import { userHasPaidById, getUserInfoById } from "../../redux/actions/users";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Importa los estilos de Toastify
@@ -18,12 +18,15 @@ export default function Upload() {
   const [imageLoaded, setImageLoaded] = useState(false);  // Estado para controlar el difuminado de la imagen
   const { user, isAuthenticated } = useAuth0();  
   const hasPaid = useSelector((state) => state.users.hasPaid);
+  const userPublicInfo = useSelector((state) => state.users.userPublicInfo);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (isAuthenticated && user) {
       dispatch(userHasPaidById(user.sub));
+      dispatch(getUserInfoById(user.sub));
+
     }
   }, [dispatch, user, isAuthenticated]);
 
@@ -95,6 +98,14 @@ export default function Upload() {
     setImageLoaded(true); // Marca la imagen como cargada para remover el difuminado
   };
 
+  if (userPublicInfo && userPublicInfo.hasBeenBlocked === true) {
+    return (<div className="blocked-alert">
+      <p>This user has been blocked and cannot access the system.</p>
+    </div>);
+  }
+
+  
+  
   return (
     <div className="container">
       <h1>Upload your photo here</h1>

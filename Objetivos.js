@@ -7,8 +7,8 @@
 //4.-Pasarela de pagos paypal en upload no me saldra la opcion de subir fotos hasta pagar, luego de eso se habilita
 // 5.-delete
 // 8.-Dashboard (Perdonar paga de un usuario, ver todos los pagos)
-!8.- Bloquear usuario desde el dashboard? 
-?Mostrar todos los datos del usuario en el dashboard con botones de copiar y que al hacer click en su tarjeta te lleve a su perfil
+!8.- Bloquear usuario desde el dashboard
+?Bloquear todas las peticiones a un usuario bloqueado
 9.- Poder editar tu usuario
 6.-Comodo al usuario (Responsive)
 7.- Muuuuy bonito

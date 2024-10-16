@@ -3,10 +3,10 @@ import {
   USER_PUBLIC_INFO,
   DELETE_PHOTO,
   USER_HAS_PAID,
+  USER_BLOCKED,
+  USER_UNBLOCKED
 } from "../actions/users";
-import{
-  USER_WAS_FORGIVEN
-} from "../actions/payments"
+import { USER_WAS_FORGIVEN } from "../actions/payments";
 
 const initialState = {
   allUsers: [],
@@ -33,13 +33,28 @@ const usersReducer = (state = initialState, action) => {
       };
     case USER_HAS_PAID:
       return { ...state, hasPaid: payload };
-      case USER_WAS_FORGIVEN:
-        return {
-          ...state,
-          allUsers: state.allUsers.map(user =>
-            user.auth0Id === payload ? { ...user, hasPaid: true } : user
-          ),
-        };  
+    case USER_WAS_FORGIVEN:
+      return {
+        ...state,
+        allUsers: state.allUsers.map((user) =>
+          user.auth0Id === payload ? { ...user, hasPaid: true } : user
+        ),
+      };
+    case USER_BLOCKED:
+      return {
+        ...state,
+        allUsers: state.allUsers.map((user) =>
+          user.auth0Id === payload ? { ...user, hasBeenBlocked: true } : user
+        ),
+      };
+    case USER_UNBLOCKED:
+      return {
+        ...state,
+        allUsers: state.allUsers.map((user) =>
+          user.auth0Id === payload ? { ...user, hasBeenBlocked: false } : user
+        ),
+      };
+      
     default:
       return state;
   }

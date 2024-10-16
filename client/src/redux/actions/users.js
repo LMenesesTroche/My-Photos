@@ -6,6 +6,8 @@ export const GET_USERS = "GET_USERS";
 export const USER_PUBLIC_INFO = "USER_PUBLIC_INFO";
 export const DELETE_PHOTO = "DELETE_PHOTO";
 export const USER_HAS_PAID = "USER_HAS_PAID";
+export const USER_BLOCKED = "USER_BLOCKED";
+export const USER_UNBLOCKED = "USER_UNBLOCKED";
 
 export const getAllUsers = () => {
   return async (dispatch) => {
@@ -100,13 +102,13 @@ export const blockUser = (auth0Id) => {
       // console.log("Este es el response del back:",response.data)
       Swal.fire('Usuario bloqueado', '', 'success');
 
-      // if(response.data.message === "The user has been blocked succesfully"){
-      //   // console.log("Positivo")
-      //   return dispatch({
-      //     type: USER_BLOCKED,
-      //     payload: auth0Id,
-      //   });
-      // }
+      if(response.data.message === "The user has been blocked succesfully"){
+        // console.log("Positivo")
+        return dispatch({
+          type: USER_BLOCKED,
+          payload: auth0Id,
+        });
+      }
 
     } catch (error) {
       console.log("Error en actions: block user", error);
@@ -130,13 +132,12 @@ export const unblockUser = (auth0Id) => {
       // console.log("Este es el response del back:",response.data)
       Swal.fire('Usuario desbloqueado', '', 'success');
 
-      // if(response.data.message === "The user has been blocked succesfully"){
-      //   console.log("Positivo")
-      //   return dispatch({
-      //     type: USER_BLOCKED,
-      //     payload: auth0Id,
-      //   });
-      // }
+      if(response.data.message === "The user has been unblocked succesfully"){       
+        return dispatch({
+          type: USER_UNBLOCKED,
+          payload: auth0Id,
+        });
+      }
 
     } catch (error) {
       console.log("Error en actions: unblock user", error);

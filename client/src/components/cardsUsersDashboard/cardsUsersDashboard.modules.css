@@ -42,8 +42,18 @@
   margin-bottom: 10px;
   font-weight: bold;
 }
-
+.block-status {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
 .payment-status.paid {
+  color: green;
+}
+.block-status.blocked {
+  color: red;
+}
+.block-status.notBlocked {
   color: green;
 }
 
@@ -80,3 +90,5 @@
 .card.blocked .forgive-btn {
   display: none; /* Ocultar botón si el usuario está bloqueado */
 }
+
+

@@ -112,6 +112,7 @@ const PublicProfile = () => {
       <p>This user has been blocked and cannot access the system.</p>
     </div>);
   }
+
   return (
     <div className="landing-container">
       <div className="userInfo">
