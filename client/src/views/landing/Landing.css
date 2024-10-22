@@ -1,59 +1,57 @@
 .landing-container {
   background-color: rgb(255, 255, 255);
   display: flex;
-  flex-direction: column; /* Permite apilar el botón y la imagen */
+  flex-direction: column;
   align-items: center;
-  /* padding: 10px; */
   text-align: center;
   width: 100%;
-  transition: background-color 0.3s ease; /* Transición suave para el cambio de fondo */
+  transition: background-color 0.3s ease;
 }
 
 .landing-container.black-background {
-  background-color: black; /* Fondo negro cuando se selecciona una foto */
+  background-color: black;
 }
-.userInfo {
-  background-color: rgb(255, 255, 255);
-  width: 50%;
+
+.landing-userInfo {
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center; /* Centra los elementos verticalmente */
-  padding: 10px; /* Espaciado interno para todos los elementos */
+  align-items: center;
+  padding: 10px;
   height: 180px;
 }
 
-.userText {
-  background-color: rgb(255, 255, 255);
+.landing-userText {
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: center; /* Centra el texto verticalmente */
-  margin-right: 10px; /* Espacio entre texto e imagen */
+  justify-content: center;
+  margin-right: 10px;
 }
 
-.userName,
-.works {
-  margin: 0; /* Elimina los márgenes por defecto */
-  padding: 10px; /* Elimina el padding por defecto */
-  line-height: 1; /* Ajusta la altura de línea para reducir el espacio */
+.landing-userName,
+.landing-works {
+  margin: 0;
+  padding: 10px;
+  line-height: 1;
 }
 
-.imageSection {
+.landing-imageSection {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 30%;
 }
 
-.porfilePhoto {
+.landing-porfilePhoto {
   height: 14vh;
   position: relative;
   right: 0px;
   border-radius: 50px;
 }
 
-.gallery {
+.landing-gallery {
   background-color: #ffffff;
   display: flex;
   width: 95%;
@@ -62,27 +60,27 @@
   justify-content: center;
 }
 
-.gallery-photo {
-  max-width: 550px; /* Ajusta el tamaño máximo según sea necesario */
-  max-height: 350px; /* Ajusta el tamaño máximo según sea necesario */
-  width: auto; /* Mantiene el tamaño natural de la imagen */
-  height: auto; /* Mantiene el tamaño natural de la imagen */
-  border-radius: 8px; /* Esquinas redondeadas para un mejor estilo */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para dar un efecto de profundidad */
+.landing-gallery-photo {
+  max-width: 550px;
+  max-height: 350px;
+  width: auto;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  object-fit: cover; /* Asegura que la imagen cubra el área del contenedor */
-  transition: transform 0.3s ease; /* Agrega transición para el efecto de zoom */
+  object-fit: cover;
+  transition: transform 0.3s ease;
 }
 
-.gallery-photo:hover {
-  transform: scale(1.05); /* Aumenta un poco el tamaño al pasar el ratón por encima */
+.landing-gallery-photo:hover {
+  transform: scale(1.05);
 }
 
-.modal {
+.landing-modal {
   display: flex;
-  flex-direction: column; /* Permite apilar el botón y la imagen */
-  justify-content: center; /* Centra el contenido verticalmente */
-  align-items: center; /* Centra el contenido horizontalmente */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   position: fixed;
   top: 0;
   left: 0;
@@ -90,64 +88,62 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.793);
   z-index: 1000;
-  transition: background-color 0.3s ease; /* Transición suave para el cambio de fondo */
-  margin: 0; /* Asegúrate de que no haya margen */
-  padding: 0; /* Asegúrate de que no haya padding */
+  margin: 0;
+  padding: 0;
 }
 
-.modal-black {
-  background-color: black; /* Fondo totalmente negro cuando los botones están visibles */
+.landing-modal-black {
+  background-color: black;
 }
 
-.modal-content {
+.landing-modal-content {
   max-width: 99%;
   max-height: 98%;
   border: none;
-  object-fit: contain; /* Mantiene la proporción de la imagen sin deformarla */
+  object-fit: contain;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, max-width 0.3s ease, max-height 0.3s ease;
-  z-index: 1001; /* Asegura que la imagen esté siempre por encima del fondo */
-  margin: 0; /* Asegúrate de que no haya margen */
-  padding: 0; /* Asegúrate de que no haya padding */
+  z-index: 1001;
+  margin: 0;
+  padding: 0;
 }
 
-.full-image {
+.landing-full-image {
   width: 130%;
-  max-width: none; /* Asegura que la imagen no tenga un límite de tamaño */
-  max-height: none; /* Asegura que la imagen no tenga un límite de tamaño */
+  max-width: none;
+  max-height: none;
 }
 
-
-.rotate-button,
-.prev-button,
-.next-button {
+.landing-rotate-button,
+.landing-prev-button,
+.landing-next-button {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background-color: rgba(255, 255, 255, 0); /* Cambié la opacidad para mejor visibilidad */
+  background-color: rgba(255, 255, 255, 0);
   border: none;
   padding: 10px;
   font-size: 20px;
   cursor: pointer;
   z-index: 1001;
-  transition: opacity 0.3s ease; /* Transición suave para la opacidad */
+  transition: opacity 0.3s ease;
 }
 
-.rotate-button {
+.landing-rotate-button {
   left: 30px;
-  top: 30px; /* Ajusté la posición para no interferir con el botón de cierre */
+  top: 30px;
 }
 
-.prev-button {
+.landing-prev-button {
   left: 20px;
 }
 
-.next-button {
+.landing-next-button {
   right: 20px;
 }
 
-.close {
+.landing-close {
   position: absolute;
   top: 20px;
   right: 40px;
@@ -158,26 +154,26 @@
   z-index: 1001;
 }
 
-.close:hover,
-.close:focus {
+.landing-close:hover,
+.landing-close:focus {
   color: #bbb;
   text-decoration: none;
 }
 
-.userName {
+.landing-userName {
   font-size: 50px;
   font-weight: 100;
   color: #434343;
-  font-family: "Playfair Display", serif; /* Corregido el nombre de la fuente */
+  font-family: "Playfair Display", serif;
 }
 
-.works {
+.landing-works {
   color: #434343;
   font-size: 20px;
   font-weight: 100;
 }
 
-.loading-spinner {
+.landing-loading-spinner {
   border: 8px solid rgba(255, 255, 255, 0.3);
   border-top: 8px solid white;
   border-radius: 50%;
@@ -201,19 +197,19 @@
 }
 
 @media (max-width:900px) {
-  .gallery{
+  .landing-gallery {
     width: 100%;
   }
-  .gallery-photo{
+  .landing-gallery-photo {
     max-width: 180px;
   }
-  .rotate-button{
-    top:50px;
+  .landing-rotate-button {
+    top: 50px;
   }
-  .works{
+  .landing-works {
     padding-bottom: 30px;
   }
-  .userInfo{
+  .landing-userInfo {
     width: 100%;
     justify-content: center;
     align-items: center;

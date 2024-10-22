@@ -5,13 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 const EditProfile = () => {
   const navigate = useNavigate(); // Hook para realizar la navegación programática
-  const dispatch = useDispatch();
   const userPublicInfo = useSelector((state) => state.users.userPublicInfo); // Información actual del usuario
 
   // Estado local para manejar los datos del formulario
   const [name, setName] = useState("");
-  const [biography, setBiography] = useState("");
-  const [introduction, setIntroduction] = useState("");
+
 
   // Prellenar los valores del formulario cuando se cargue el componente
   useEffect(() => {
@@ -45,8 +43,7 @@ const EditProfile = () => {
 
   return (
     <div>
-      <h1>Edit your info</h1>
-
+      <h1>Edit your Name:</h1>
       <div>
         <label htmlFor="name">Name:</label>
         <input
@@ -56,25 +53,6 @@ const EditProfile = () => {
           onChange={(e) => setName(e.target.value)} // Actualiza el estado del nombre
         />
       </div>
-
-      <div>
-        <label htmlFor="biography">Biography:</label>
-        <textarea
-          id="biography"
-          value={biography}
-          onChange={(e) => setBiography(e.target.value)} // Actualiza el estado de la biografía
-        />
-      </div>
-
-      <div>
-        <label htmlFor="introduction">Introduction:</label>
-        <textarea
-          id="introduction"
-          value={introduction}
-          onChange={(e) => setIntroduction(e.target.value)} // Actualiza el estado de la introducción
-        />
-      </div>
-
       <button onClick={handleCancel}>Cancel</button>
       <button onClick={handleSave}>Save</button>
     </div>

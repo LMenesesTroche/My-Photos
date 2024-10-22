@@ -113,6 +113,8 @@ const userInfo = {
   ],
 };
 
+// Este es mi perfil de incio (Lucas Meneses)
+//!Activo
 const Landing = () => {
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [rotation, setRotation] = useState(0);
@@ -187,23 +189,23 @@ const Landing = () => {
 
   return (
     <div className="landing-container">
-      <div className="userInfo">
-        <div className="userText">
-          <h1 className="userName">Lucas Meneses</h1>
-          <h2 className="works">Selected Work</h2>
+      <div className="landing-userInfo">
+        <div className="landing-userText">
+          <h1 className="landing-userName">Lucas Meneses</h1>
+          <h2 className="landing-works">Selected Work</h2>
         </div>
-        <div className="imageSection">
-          <img src={userInfo.img} className="porfilePhoto" alt="Profile" />
+        <div className="landing-imageSection">
+          <img src={userInfo.img} className="landing-porfilePhoto" alt="Profile" />
         </div>
       </div>
-      <div className="gallery">
+      <div className="landing-gallery">
         {userInfo.photos.map(
           (photo, index) =>
             photo.low_res_url && (
               <LazyLoadImage
                 key={index}
                 src={photo.low_res_url}
-                className="gallery-photo"
+                className="landing-gallery-photo"
                 alt={`Foto ${index + 1}`}
                 onClick={() => handlePhotoClick(photo)}
                 effect="blur" // Efecto de desenfoque al cargar
@@ -213,28 +215,28 @@ const Landing = () => {
       </div>
       {selectedPhoto && (
         <div
-          className={`modal ${showButtons ? "" : "modal-black"}`}
+          className={`landing-modal ${showButtons ? "" : "landing-modal-black"}`}
           onClick={handleCloseModal}
         >
           {showButtons && (
             <>
-              <span className="close" onClick={handleCloseModal}>&times;</span>
+              <span className="landing-close" onClick={handleCloseModal}>&times;</span>
               {!isLargeScreen && (
-                <button className="rotate-button" onClick={handleRotatePhoto}>
+                <button className="landing-rotate-button" onClick={handleRotatePhoto}>
                   Rotate
                 </button>
               )}
-              <button className="prev-button" onClick={handlePreviousPhoto}>
+              <button className="landing-prev-button" onClick={handlePreviousPhoto}>
                 &lt; {/* Flecha izquierda */}
               </button>
-              <button className="next-button" onClick={handleNextPhoto}>
+              <button className="landing-next-button" onClick={handleNextPhoto}>
                 &gt; {/* Flecha derecha */}
               </button>
             </>
           )}
-
+  
           {isLoading ? (
-            <div className="loading-spinner"></div> // Círculo de carga
+            <div className="landing-loading-spinner"></div> // Círculo de carga
           ) : (
             <img
               className={imageClass}
@@ -248,6 +250,7 @@ const Landing = () => {
       )}
     </div>
   );
+  
 };
 
 export default Landing;

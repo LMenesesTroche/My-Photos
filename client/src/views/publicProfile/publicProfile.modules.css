@@ -1,10 +1,9 @@
 .publiProfile-container {
   background-color: rgb(255, 0, 0);
   display: flex;
-  flex-direction: column; /* Permite apilar el botón y la imagen */
+  flex-direction: column;
   align-items: center;
-  /* padding: 10px; */
   text-align: center;
   width: 100%;
-  transition: background-color 0.3s ease; /* Transición suave para el cambio de fondo */
+  transition: background-color 0.3s ease;
 }
