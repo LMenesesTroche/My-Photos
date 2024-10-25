@@ -1,5 +1,5 @@
 import React from "react";
-
+import "./modalViewer.modules.css";
 const ModalViewer = ({
   selectedPhoto,
   rotation,

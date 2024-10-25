@@ -1,6 +1,8 @@
 import rutaBack from "./rutaBack";
 import axios from "axios";
 import Swal from 'sweetalert2';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; // Importa los estilos de Toastify
 
 export const GET_USERS = "GET_USERS";
 export const USER_PUBLIC_INFO = "USER_PUBLIC_INFO";
@@ -145,4 +147,17 @@ export const unblockUser = (auth0Id) => {
 
     }
   };
+};
+
+export const updateUserName = (userId, newName) => async (dispatch) => {
+  try {
+    await axios.post(`${rutaBack}/users/updateName`, { name: newName });
+    if (response.data.message === "Updated successfully") {
+      toast.success("The Username was updated successfully");
+      dispatch(getUserInfoById(userId));//!Creo que puedes optimizar esto al solo cambiar el nombre del usuario con el reducer :)
+    }
+  } catch (error) {
+    toast.error("There was an error while updating the username");
+    console.error("Error updating user name:", error);
+  }
 };

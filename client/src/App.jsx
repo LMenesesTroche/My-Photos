@@ -8,7 +8,6 @@ import UserData from "./views/profile/index";
 import AllUsers from "./views/allUsers";
 import PublicProfile from "./views/publicProfile";
 import Dashboard from "./views/dashboard";
-import EditProfile from "./views/editProfile";
 
 function App() {
   return (
@@ -21,7 +20,6 @@ function App() {
         <Route path="/allUsers" element={<AllUsers />} />
         <Route path="/profile/:id" element={<PublicProfile />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/edit-profile" element={<EditProfile />} />
       </Routes>
       <Footer />
     </div>

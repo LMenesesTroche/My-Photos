@@ -1,6 +1,7 @@
 import React from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { AiFillDelete } from "react-icons/ai";
+import "./photoGalery.modules.css";
 
 const PhotoGallery = ({ photos, onPhotoClick, isOwner, onDeletePhoto }) => {
   return (

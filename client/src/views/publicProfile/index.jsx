@@ -8,6 +8,7 @@ import UserInfo from "../../components/userInfo";
 import PhotoGallery from "../../components/photoGalery";
 import ModalViewer from "../../components/modalviewer";
 import { usePhotoNavigation } from "../../components/usePhotoNavegation";
+import { updateUserName } from "../../redux/actions/users";
 
 const PublicProfile = () => {
   const { id } = useParams();
@@ -15,7 +16,8 @@ const PublicProfile = () => {
   const userPublicInfo = useSelector((state) => state.users.userPublicInfo);
   const { user, isAuthenticated } = useAuth0();
   const isLargeScreen = useMedia({ minWidth: 768 });
-  const navigate = useNavigate(); // Hook para realizar la navegación
+  // const navigate = useNavigate(); // Hook para realizar la navegación
+  const [ showModal, setShowModal ] = useState(false);
 
   const {
     selectedPhoto,
@@ -45,6 +47,11 @@ const PublicProfile = () => {
     }
   };
 
+  const handleEditName = (newName) => {
+    dispatch(updateUserName(id, newName)); // Llama a la acción de actualizar nombre con el nuevo nombre
+    // setShowModal(false); 
+  };
+
   if (!userPublicInfo) {
     return <div>Loading...</div>;
   }
@@ -57,12 +64,16 @@ const PublicProfile = () => {
     );
   }
 
+  
   return (
     <div className="publiProfile-container">
       <UserInfo
         userPublicInfo={userPublicInfo}
         isOwner={isOwner}
-        onEditClick={() => navigate("/edit-profile")}
+        onEditClick={() => setShowModal(true)}
+        show={showModal}
+        onCloseClick={() => setShowModal(false)}
+        onClickEdit={handleEditName}
       />
 
       <PhotoGallery

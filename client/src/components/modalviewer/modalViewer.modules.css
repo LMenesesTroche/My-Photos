@@ -33,9 +33,7 @@
   }
   
   .full-image {
-    width: 130%;
-    max-width: none; /* Asegura que la imagen no tenga un límite de tamaño */
-    max-height: none; /* Asegura que la imagen no tenga un límite de tamaño */
+    width: 100%;
   }
   
   

@@ -62,3 +62,45 @@
     color: #323232;
   }
   
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5); /* Color negro semitransparente */
+    z-index: 999; /* Asegura que esté detrás del modal */
+  }
+
+  .edit-modal {
+    background-color: rgb(190, 190, 190);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed; /* Cambiado a fixed para que se centre en la ventana */
+    width: 40%;
+    top: 20%;
+    right: 30%;
+    z-index: 1000; /* Encima del overlay */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .botones{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+    /* background-color: aqua; */
+    margin-top: 20px; /* Espacio entre los botones y el contenido superior */
+  }
+  
+  .input-edit{
+    width: 40%;
+    border-radius: 5px;
+    background-color: aliceblue;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 500;
+    border: none;
+  }
