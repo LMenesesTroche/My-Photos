@@ -1,5 +1,6 @@
 import axios from "axios";
 import rutaBack from "./rutaBack";
+import { toast } from "react-toastify";
 export const UPLOAD_IMAGE_SUCCESS = "UPLOAD_IMAGE_SUCCESS";
 export const UPLOAD_IMAGE_FAIL = "UPLOAD_IMAGE_FAIL";
 
@@ -14,39 +15,22 @@ export const uploadBack = (data) => {
   };
 };
 
-// Esta action sube fotos a cloudinary
-export const uploadImageToCloudinary = (file, userSub, setProgress) => async (dispatch) => {
-  const formData = new FormData();
-  formData.append("file", file);
-  formData.append("upload_preset", "portafolioProyect");
+export const updateProfilePicture = ({ auth0Id, newUrl }) => {
+  return async (dispatch) => {
+    try {
+      // console.log("Esto mando al back",{auth0Id,newUrl})
+      let response = await axios.post(`${rutaBack}/photos/update-profile-picture`,{ auth0Id, newUrl});
+      
+      // console.log(response.data);
 
-  try {
-    const response = await axios.post(
-      `https://api.cloudinary.com/v1_1/decbwosgj/image/upload`,
-      formData,
-      {
-        onUploadProgress: (progressEvent) => {
-          const percentCompleted = Math.round(
-            (progressEvent.loaded * 100) / progressEvent.total
-          );
-          setProgress(percentCompleted);
-        },
+      if(response.data.message === "Success"){
+        toast.success("The profile picture was updated successfully")
+      }else if(response.data.error){
+        toast.error(response.data.error)
       }
-    );
 
-    const highUrl = response.data.secure_url;
-    const lowUrl = highUrl.replace("/upload/", "/upload/q_auto:low/");
-
-    // Dispatch the uploaded URLs to the reducer or backend
-    dispatch({
-      type: UPLOAD_IMAGE_SUCCESS,
-      payload: { highUrl, lowUrl, userSub },
-    });
-
-    return { highUrl, lowUrl };  // Return URLs for use in the component if needed
-  } catch (error) {
-    console.error("Error uploading image:", error);
-    dispatch({ type: UPLOAD_IMAGE_FAIL, error });
-    throw error;
-  }
+    } catch (error) {
+      console.error("Error en actions updateProfilePicture", error);
+    }
+  };
 };

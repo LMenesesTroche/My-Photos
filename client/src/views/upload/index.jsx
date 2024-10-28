@@ -45,15 +45,7 @@ export default function Upload() {
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Ok',
-        // cancelButtonText: 'Cancelar',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          // Si se confirma, se despacha la acción para perdonar el pago
-          dispatch(forgivePaymentByUserId(auth0Id));
-        }
-      });
-
-
+      })
       return;
     }
 
@@ -112,7 +104,7 @@ export default function Upload() {
       {!hasPaid ? (
         <div>
           <p>Please pay $10 via PayPal to upload images.</p>
-          <PayPalButton totalValue={10} invoice={"Taza de cafe "} />
+          <PayPalButton totalValue={10} invoice={"Suscripcion My Photos"} />
         </div>
       ) : (
         <>

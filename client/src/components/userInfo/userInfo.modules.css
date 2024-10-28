@@ -4,8 +4,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center; /* Centra los elementos verticalmente */
-  padding: 10px; /* Espaciado interno para todos los elementos */
+  align-items: center;
+  padding: 10px;
   height: 180px;
 }
 
@@ -14,93 +14,133 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: center; /* Centra el texto verticalmente */
-  margin-right: 10px; /* Espacio entre texto e imagen */
+  justify-content: center;
+  margin-right: 10px;
 }
+
 .userName,
 .works {
-  margin: 0; /* Elimina los márgenes por defecto */
-  padding: 10px; /* Elimina el padding por defecto */
-  line-height: 1; /* Ajusta la altura de línea para reducir el espacio */
+  margin: 0;
+  padding: 10px;
+  line-height: 1;
 }
 
 .imageSection {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50px;
+  width: auto; /* Cambiado para flexibilidad */
+  height: auto; /* Cambiado para flexibilidad */
+  max-width: 150px; /* Limita el ancho máximo */
 }
 
-.porfilePhoto {
-  height: 14vh;
-  width: 14vh;
+.edit-modal,
+.crop-modal {
+  background-color: #fff;
+  width: 80%; /* Cambia a un % para adaptabilidad */
+  max-width: 600px; /* Un máximo para evitar expansión excesiva */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+}
+
+.profilePhoto {
+  height: 100px; /* Dimensión adaptable */
+  width: 100px; /* Mantiene la proporción */
+  border-radius: 50%;
+  object-fit: cover; /* Ajusta bien la imagen recortada */
+}
+
+.crop-container {
+  width: 100%;
+  height: 300px;
+  background-color: #f3f3f3;
   position: relative;
-  right: 0px;
-  border-radius: 50px;
+  overflow: hidden;
+  margin-bottom: 20px;
 }
 
 .works {
-    color: #434343;
-    font-size: 20px;
-    font-weight: 100;
-  }
-  .userName {
-    font-size: 50px;
-    font-weight: 100;
-    color: #434343;
-    font-family: "Playfair Display", serif; /* Corregido el nombre de la fuente */
-  }
-  
-  .editIcon {
-    margin-left: 10px;
-    cursor: pointer;
-    font-size: 1.5rem;
-    color: #7f7f7f;
-  }
-  
-  .editIcon:hover {
-    color: #323232;
-  }
-  
-  .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5); /* Color negro semitransparente */
-    z-index: 999; /* Asegura que esté detrás del modal */
-  }
+  color: #434343;
+  font-size: 20px;
+  font-weight: 100;
+}
 
-  .edit-modal {
-    background-color: rgb(190, 190, 190);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: fixed; /* Cambiado a fixed para que se centre en la ventana */
-    width: 40%;
-    top: 20%;
-    right: 30%;
-    z-index: 1000; /* Encima del overlay */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  .botones{
-    display: flex;
-    width: 100%;
-    justify-content: space-around;
-    align-items: center;
-    /* background-color: aqua; */
-    margin-top: 20px; /* Espacio entre los botones y el contenido superior */
-  }
-  
-  .input-edit{
-    width: 40%;
-    border-radius: 5px;
-    background-color: aliceblue;
-    font-family: 'Times New Roman', Times, serif;
-    font-weight: 500;
-    border: none;
-  }
+.userName {
+  font-size: 50px;
+  font-weight: 100;
+  color: #434343;
+  font-family: "Playfair Display", serif;
+}
+
+.editIcon {
+  margin-left: 10px;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: #7f7f7f;
+}
+
+.editIcon:hover {
+  color: #323232;
+}
+
+/* Estilos específicos para el icono de edición en la foto */
+.editPhotoIcon {
+  position: absolute; /* Para ubicarlo sobre la foto */
+  bottom: 10px;
+  right: 10px;
+  font-size: 1.2rem;
+  color: #7f7f7f;
+  cursor: pointer;
+}
+
+.editPhotoIcon:hover {
+  color: #323232;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.edit-modal {
+  background-color: rgb(190, 190, 190);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  width: 40%;
+  top: 20%;
+  right: 30%;
+  z-index: 1000;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.botones {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.input-edit {
+  width: 40%;
+  border-radius: 5px;
+  background-color: aliceblue;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: 500;
+  border: none;
+}

@@ -2,6 +2,7 @@ const { Router } = require("express");
 const postPhoto = require("../controllers/photos/postPhoto");
 const deletePhoto = require("../controllers/photos/deletePhoto");
 const checkJwt = require("../../middleware"); // Importa el middleware que verificará el token
+const updateProfilePicture = require("../controllers/users/changeProfilePicture");
 
 const photosRoutes = Router();
 
@@ -61,6 +62,21 @@ photosRoutes.delete("/delete", checkJwt, async (req, res) => {
       res.status(500).json({ error: "Error deleting photo" });
     }
   });
-  
+
+  photosRoutes.post("/update-profile-picture", async (req, res) => {
+    try {
+        const { auth0Id, newUrl } = req.body;
+
+        if (!auth0Id || !newUrl) throw new Error("Missing data");
+        if (typeof auth0Id !== "string") throw new Error("invalid data");
+        if (typeof newUrl !== "string") throw new Error("invalid data");
+
+        const message = await updateProfilePicture({ auth0Id, newUrl });
+        res.status(200).json(message);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: "Error on update profile picture" });
+    }
+});  
 
 module.exports = photosRoutes;

@@ -17,7 +17,7 @@ Bloquear todas las peticiones a un usuario bloqueado
 7.-Poder acomodar las imagenes
 
 ? crear el back de editar nombre de usuario
-
+?Despues de subir la nueva foto de perfil cerrar el modal, hacer recuadro para recortar la imagen, borrar la imagen anterior de cloudinary
 si no pago que salga un cartelito en la seccion de perfil que diga que debe pagar para poder subir sus fotos 
 
 */
