@@ -49,7 +49,7 @@ const PublicProfile = () => {
 
   const handleEditName = (newName) => {
     dispatch(updateUserName(id, newName)); // Llama a la acción de actualizar nombre con el nuevo nombre
-    // setShowModal(false); 
+    setShowModal(false); 
   };
 
   if (!userPublicInfo) {

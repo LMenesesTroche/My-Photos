@@ -8,6 +8,7 @@ const checkJwt = require("../../middleware");
 const verifyAdmin = require("../../adminMiddleware");
 const blockUser = require("../controllers/users/blockUser");
 const unblockUser = require("../controllers/users/unblockUser");
+const editUserName = require("../controllers/users/editUserName");
 
 const userRoutes = Router();
 
@@ -118,6 +119,33 @@ userRoutes.post("/unblock-user", checkJwt, verifyAdmin, async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Error block user routes" });
+  }
+});
+
+userRoutes.post("/update-username", checkJwt, async (req, res) => {
+  try {
+    const { auth0Id, newUserName } = req.body;
+
+    if (!auth0Id || !newUserName) {
+      throw new Error("Missing data");
+    }
+
+    //!Verificar que el nuevo nombre no sea demasiado grande
+    if (typeof auth0Id !== "string" || typeof newUserName !== "string") {
+      throw new Error("Invalid data");
+    }
+
+    const response = await editUserName({ auth0Id, newUserName });
+
+    if (response.error) {
+      // Enviar mensaje de error al frontend si el nombre ya está en uso
+      return res.status(200).json({ error: response.error });
+    }
+
+    res.status(200).json(response);
+  } catch (error) {
+    console.error("Error en la ruta change userName:", error.message);
+    res.status(500).json({ error: error.message });
   }
 });
 

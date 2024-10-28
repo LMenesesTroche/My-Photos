@@ -1,6 +1,6 @@
 import rutaBack from "./rutaBack";
 import axios from "axios";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Importa los estilos de Toastify
 
@@ -96,26 +96,25 @@ export const blockUser = (auth0Id) => {
       const token = localStorage.getItem("authToken");
       // console.log("Este es el token que mando al back:", token)
 
-      let response = await axios.post(`${rutaBack}/users/block-user`, 
+      let response = await axios.post(
+        `${rutaBack}/users/block-user`,
         { userId: auth0Id },
-        { headers: { Authorization: `Bearer ${token}` }} 
+        { headers: { Authorization: `Bearer ${token}` } }
       );
 
       // console.log("Este es el response del back:",response.data)
-      Swal.fire('Usuario bloqueado', '', 'success');
+      Swal.fire("Usuario bloqueado", "", "success");
 
-      if(response.data.message === "The user has been blocked succesfully"){
+      if (response.data.message === "The user has been blocked succesfully") {
         // console.log("Positivo")
         return dispatch({
           type: USER_BLOCKED,
           payload: auth0Id,
         });
       }
-
     } catch (error) {
       console.log("Error en actions: block user", error);
-      Swal.fire('Error al bloquear usuario', '', 'error');
-
+      Swal.fire("Error al bloquear usuario", "", "error");
     }
   };
 };
@@ -126,35 +125,45 @@ export const unblockUser = (auth0Id) => {
       const token = localStorage.getItem("authToken");
       // console.log("Este es el token que mando al back:", token)
 
-      let response = await axios.post(`${rutaBack}/users/unblock-user`, 
+      let response = await axios.post(
+        `${rutaBack}/users/unblock-user`,
         { userId: auth0Id },
-        { headers: { Authorization: `Bearer ${token}` }} 
+        { headers: { Authorization: `Bearer ${token}` } }
       );
 
       // console.log("Este es el response del back:",response.data)
-      Swal.fire('Usuario desbloqueado', '', 'success');
+      Swal.fire("Usuario desbloqueado", "", "success");
 
-      if(response.data.message === "The user has been unblocked succesfully"){       
+      if (response.data.message === "The user has been unblocked succesfully") {
         return dispatch({
           type: USER_UNBLOCKED,
           payload: auth0Id,
         });
       }
-
     } catch (error) {
       console.log("Error en actions: unblock user", error);
-      Swal.fire('Error al desbloquear usuario', '', 'error');
-
+      Swal.fire("Error al desbloquear usuario", "", "error");
     }
   };
 };
 
 export const updateUserName = (userId, newName) => async (dispatch) => {
   try {
-    await axios.post(`${rutaBack}/users/updateName`, { name: newName });
-    if (response.data.message === "Updated successfully") {
+    const token = localStorage.getItem("authToken");
+    // console.log("Este es el token que mando al back:", token);
+    // console.log("datos","Userid:",userId, "NewName;",newName);
+
+    let response = await axios.post(
+      `${rutaBack}/users/update-username`,
+      { auth0Id: userId, newUserName: newName },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+
+    if (response.data.message === "Username updated successfully") {
       toast.success("The Username was updated successfully");
-      dispatch(getUserInfoById(userId));//!Creo que puedes optimizar esto al solo cambiar el nombre del usuario con el reducer :)
+      dispatch(getUserInfoById(userId));
+    }else if (response.data.error === "Username already in use") {
+      toast.error("This Username is already in use");
     }
   } catch (error) {
     toast.error("There was an error while updating the username");

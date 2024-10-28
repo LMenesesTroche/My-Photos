@@ -50,7 +50,7 @@ const UserInfo = ({
               className="input-edit"
               required
               minLength="1"
-              maxLength="25"
+              maxLength="30"
               size="10"
               value={editedName} // Asocia el estado con el input
               onChange={handleNameChange} // Maneja el cambio en el input
