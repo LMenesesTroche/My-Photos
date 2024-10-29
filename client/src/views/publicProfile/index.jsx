@@ -42,8 +42,9 @@ const PublicProfile = () => {
   };
 
   const handleDeletePhoto = (photoId) => {
+    const auth0Id = id;
     if (window.confirm("Are you sure you want to delete this photo?")) {
-      dispatch(deletePhoto(id, photoId));
+      dispatch(deletePhoto(auth0Id, photoId));
     }
   };
 

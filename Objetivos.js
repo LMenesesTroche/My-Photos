@@ -8,16 +8,14 @@
 // 5.-delete
 // 8.-Dashboard (Perdonar paga de un usuario, ver todos los pagos)
 //8.- Bloquear usuario desde el dashboard
+//9.- Poder editar tu nombre de usuario y foto de perfil 
 Bloquear todas las peticiones a un usuario bloqueado
-!9.- Poder editar tu nombre de usuario y foto de perfil 
 5.-Landing page
 7.- Muuuuy bonito
 6.-Comodo al usuario (Responsive)
 9.- deploy
 7.-Poder acomodar las imagenes
 
-? crear el back de editar nombre de usuario
-?Despues de subir la nueva foto de perfil cerrar el modal, hacer recuadro para recortar la imagen, borrar la imagen anterior de cloudinary
 si no pago que salga un cartelito en la seccion de perfil que diga que debe pagar para poder subir sus fotos 
-
+!Que el upload sea un modal ;)
 */

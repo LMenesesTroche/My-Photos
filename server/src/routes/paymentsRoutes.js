@@ -7,7 +7,7 @@ const verifyAdmin = require("../../adminMiddleware");
 
 const paymentsRoutes = Router();
 
-paymentsRoutes.get("/all", async (req, res) => {
+paymentsRoutes.get("/all", checkJwt, verifyAdmin, async (req, res) => {
   try {
     const status = await getAllPayments();
     res.status(200).json(status);
@@ -20,7 +20,6 @@ paymentsRoutes.get("/all", async (req, res) => {
 paymentsRoutes.post("/save-payment", async (req, res) => {
   try {
     //! Sería bueno verificar los datos en este punto
-
     const message = await savePayments(req);
     res.status(200).json(message);
   } catch (error) {

@@ -11,30 +11,22 @@ const updateProfilePicture = async ({ auth0Id, newUrl }) => {
   const userFound = await user.findOne({ where: { auth0Id } });
   if (!userFound) throw new Error("User not found in the database");
 
-  const previousPictureUrl = userFound.picture; // Guarda la URL anterior
+  const previousPictureUrl = userFound.picture; // Guarda la URL anterior, puede ser undefined si no tiene foto previa
   userFound.picture = newUrl; // Actualiza la URL con la nueva
-  await userFound.save(); // Asegúrate de que `save` se complete antes de continuar
+  await userFound.save(); // Guarda los cambios en la base de datos
 
-  // Extraer y eliminar la imagen anterior de Cloudinary
-  let cloudinaryPublicId;
+  // Si no hay una URL de imagen previa, salta la eliminación
   if (previousPictureUrl) {
     try {
-      cloudinaryPublicId = previousPictureUrl
+      // Extrae el public_id solo si `previousPictureUrl` tiene valor
+      const cloudinaryPublicId = previousPictureUrl
         .split("/upload/")[1]
-        .split("/")
-        .slice(1)
-        .join("/")
+        .split("/")[1]
         .split(".")[0];
-    } catch (error) {
-      console.error("Error extracting Cloudinary public_id:", error);
-    }
-  }
 
-  if (cloudinaryPublicId) {
-    try {
       await cloudinary.uploader.destroy(cloudinaryPublicId);
     } catch (error) {
-      console.error("Cloudinary deletion error:", error);
+      console.error("Error extracting or deleting Cloudinary public_id:", error);
     }
   }
 

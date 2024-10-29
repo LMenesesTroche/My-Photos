@@ -3,6 +3,7 @@ const postPhoto = require("../controllers/photos/postPhoto");
 const deletePhoto = require("../controllers/photos/deletePhoto");
 const checkJwt = require("../../middleware"); // Importa el middleware que verificará el token
 const updateProfilePicture = require("../controllers/users/changeProfilePicture");
+const blockedMiddleware = require("../blockedMiddleware");
 
 const photosRoutes = Router();
 
@@ -63,7 +64,7 @@ photosRoutes.delete("/delete", checkJwt, async (req, res) => {
     }
   });
 
-  photosRoutes.post("/update-profile-picture", async (req, res) => {
+photosRoutes.post("/update-profile-picture", checkJwt, blockedMiddleware, async (req, res) => {
     try {
         const { auth0Id, newUrl } = req.body;
 

@@ -9,9 +9,11 @@ const verifyAdmin = require("../../adminMiddleware");
 const blockUser = require("../controllers/users/blockUser");
 const unblockUser = require("../controllers/users/unblockUser");
 const editUserName = require("../controllers/users/editUserName");
+const blockedMiddleware = require("../blockedMiddleware");
 
 const userRoutes = Router();
 
+//Para guardar un nuevo usuario en la DB
 userRoutes.post("/api", async (req, res) => {
   try {
     const { sub } = req.body;
@@ -28,6 +30,7 @@ userRoutes.post("/api", async (req, res) => {
   }
 });
 
+//Trae a todos los usuarios
 userRoutes.get("/getAll", async (req, res) => {
   try {
     const message = await getAllUsers();
@@ -38,6 +41,7 @@ userRoutes.get("/getAll", async (req, res) => {
   }
 });
 
+//Trae la info especifica de un usuario
 userRoutes.get("/:idUser", async (req, res) => {
   try {
     const { idUser } = req.params;
@@ -55,6 +59,7 @@ userRoutes.get("/:idUser", async (req, res) => {
   }
 });
 
+//Verifica que haya pagado
 userRoutes.post("/hasPaid", async (req, res) => {
   try {
     const { userId } = req.body;
@@ -67,25 +72,6 @@ userRoutes.post("/hasPaid", async (req, res) => {
     res.status(200).json(response);
   } catch (error) {
     res.status(500).json({ error: "Error checking payment status" });
-  }
-});
-
-userRoutes.post("/change-profile-picture", async (req, res) => {
-  try {
-    const { auth0Id, newUrl } = req.body;
-
-    if (!auth0Id || !newUrl) {
-      throw new Error("Missing data");
-    }
-    if (typeof auth0Id !== "string" || typeof newUrl !== "string") {
-      throw new Error("Invalid data");
-    }
-
-    const response = await changeProfilePicture({ auth0Id, newUrl });
-    res.status(200).json(response);
-  } catch (error) {
-    console.error("Error en la ruta change profile picture:", error.message);
-    res.status(500).json({ error: error.message });
   }
 });
 
@@ -106,7 +92,7 @@ userRoutes.post("/block-user", checkJwt, verifyAdmin, async (req, res) => {
   }
 });
 
-// Ruta protegida para blockear solo para administradores(Desbloquear usuario)
+// Ruta protegida para desblockear solo para administradores(Desbloquear usuario)
 userRoutes.post("/unblock-user", checkJwt, verifyAdmin, async (req, res) => {
   try {
     const { userId } = req.body;
@@ -122,7 +108,8 @@ userRoutes.post("/unblock-user", checkJwt, verifyAdmin, async (req, res) => {
   }
 });
 
-userRoutes.post("/update-username", checkJwt, async (req, res) => {
+//para cambiar el nombre de usuario
+userRoutes.post("/update-username", checkJwt , blockedMiddleware,async (req, res) => {
   try {
     const { auth0Id, newUserName } = req.body;
 

@@ -197,7 +197,7 @@ const UserInfo = ({
           <div className="overlay"></div>
           
           <div className="edit-modal">
-          {uploading ? <h1>CARGANDOO....</h1> : 
+          {uploading ? <h3>CARGANDOO....</h3> : 
           <>
           
             <div className="crop-container">

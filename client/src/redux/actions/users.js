@@ -73,6 +73,7 @@ export const deletePhoto =
     }
   };
 
+
 export const userHasPaidById = (id) => {
   return async (dispatch) => {
     try {
@@ -162,7 +163,7 @@ export const updateUserName = (userId, newName) => async (dispatch) => {
     if (response.data.message === "Username updated successfully") {
       toast.success("The Username was updated successfully");
       dispatch(getUserInfoById(userId));
-    }else if (response.data.error === "Username already in use") {
+    } else if (response.data.error === "Username already in use") {
       toast.error("This Username is already in use");
     }
   } catch (error) {
