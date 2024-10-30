@@ -19,7 +19,7 @@ const postPhoto = async ({ id_user, highUrl, lowUrl }) => {
     id_user: foundUser.id_user, // Usar 'id_user' como clave foránea
   });
   
-  return newPhoto;
+  return {message:"success"};
 };
 
 module.exports = postPhoto;

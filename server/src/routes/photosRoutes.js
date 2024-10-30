@@ -7,9 +7,11 @@ const blockedMiddleware = require("../blockedMiddleware");
 
 const photosRoutes = Router();
 
-photosRoutes.post("/new", async (req, res) => {
+photosRoutes.post("/new", checkJwt, blockedMiddleware, async (req, res) => {
     try {
-        const { id_user, highUrl, lowUrl } = req.body;
+        const { auth0Id, highUrl, lowUrl } = req.body;
+
+        const id_user = auth0Id;
 
         if (!id_user || !highUrl || !lowUrl) {
             return res.status(400).json({ error: "Missing data" });
