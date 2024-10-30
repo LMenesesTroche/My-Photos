@@ -9,15 +9,13 @@
 // 8.-Dashboard (Perdonar paga de un usuario, ver todos los pagos)
 //8.- Bloquear usuario desde el dashboard
 //9.- Poder editar tu nombre de usuario y foto de perfil 
-
-?Bloquear todas las peticiones a un usuario bloqueado solo falta upload y delete photo, 
-?no cambiar toda la estructura de la db, solo cambiar nombrecito por fuera :/
-
 5.-Landing page (No mi usuario)
 7.- Muuuuy bonito
 6.-Comodo al usuario (Responsive)
 9.- deploy
 
+Agregar zoom en la galeria de imagenes
+agregar boton paraver como si no fueras el dueño
 Poder acomodar las imagenes
 Que el upload sea un modal ;)
 Que el upload este en la pagina de perfil
