@@ -34,10 +34,10 @@ photosRoutes.post("/new", checkJwt, blockedMiddleware, async (req, res) => {
     }
 });
 
-photosRoutes.delete("/delete", checkJwt, async (req, res) => {
+photosRoutes.delete("/delete", checkJwt, blockedMiddleware , async (req, res) => {
     try {
-      const { id_user, id_photo } = req.body;
-      
+      const { auth0Id, id_photo } = req.body;
+      let id_user = auth0Id
       // Extrae el ID del usuario del token JWT
       const userIdFromToken = req.auth.id; // Asegúrate de que checkJwt almacena correctamente `req.auth`
   

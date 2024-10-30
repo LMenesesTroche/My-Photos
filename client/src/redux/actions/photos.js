@@ -8,17 +8,14 @@ import "react-toastify/dist/ReactToastify.css"; // Importa los estilos de Toasti
 export const uploadBack = (data) => {
   return async (dispatch) => {
     try {
-      console.log("Esta es la data que mando al back:", data);
       const { id_user, highUrl, lowUrl } = data;
       const auth0Id = id_user;
 
       const token = localStorage.getItem("authToken");
-
       if (!token) throw new Error("No authorization token found");
 
-      console.log("Token", token);
-
-      const response = await axios.post(`${rutaBack}/photos/new`, 
+      const response = await axios.post(
+        `${rutaBack}/photos/new`,
         { auth0Id, highUrl, lowUrl },
         {
           headers: {
@@ -26,8 +23,6 @@ export const uploadBack = (data) => {
           },
         }
       );
-
-      console.log(response.data);
       if (response.data.message === "success")
         toast.success("The photo was posted successfully");
     } catch (error) {
