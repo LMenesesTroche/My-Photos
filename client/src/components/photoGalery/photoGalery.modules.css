@@ -28,3 +28,7 @@
 .photo-item.dragging {
   border: 2px dashed #007bff; /* Ejemplo de borde para indicar arrastre */
 }
+
+.photo-item {
+  transition: transform 0.3s ease; /* Transición para un efecto más fluido */
+}

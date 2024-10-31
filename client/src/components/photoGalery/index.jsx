@@ -29,11 +29,14 @@ const DraggablePhoto = ({
     accept: ItemTypes.PHOTO,
     hover: (draggedItem) => {
       if (draggedItem.index !== index) {
-        movePhoto(draggedItem.index, index);
-        draggedItem.index = index;
+        setTimeout(() => {
+          movePhoto(draggedItem.index, index);
+          draggedItem.index = index;
+        }, 100); // Ajusta el tiempo de debounce según sea necesario
       }
     },
   });
+  
 
   return (
     <div
@@ -66,6 +69,8 @@ const PhotoGallery = ({ photos, onPhotoClick, isOwner, onDeletePhoto }) => {
 
   const movePhoto = useCallback(
     (fromIndex, toIndex) => {
+      if (fromIndex === toIndex) return; // Evita cambios innecesarios
+  
       const updatedPhotos = [...photoList];
       const [movedPhoto] = updatedPhotos.splice(fromIndex, 1);
       updatedPhotos.splice(toIndex, 0, movedPhoto);
@@ -73,30 +78,29 @@ const PhotoGallery = ({ photos, onPhotoClick, isOwner, onDeletePhoto }) => {
     },
     [photoList]
   );
+  
 
   // Auto-scroll function
   const handleAutoScroll = useCallback((event) => {
     const { clientY } = event;
-    const scrollMargin = 100; // Distance from the edge to start scrolling
-    const scrollSpeed = 10; // Pixels per interval
-
-    // Clear any existing scroll interval
+    const scrollMargin = 50; // Reduce el margen de activación de scroll
+    const scrollSpeed = 5; // Reduce la velocidad de desplazamiento
+  
     clearAutoScroll();
-
+  
     if (clientY < scrollMargin) {
-      // Near the top
       scrollInterval.current = setInterval(
         () => window.scrollBy(0, -scrollSpeed),
-        20
+        30
       );
     } else if (window.innerHeight - clientY < scrollMargin) {
-      // Near the bottom
       scrollInterval.current = setInterval(
         () => window.scrollBy(0, scrollSpeed),
-        20
+        30
       );
     }
   }, []);
+  
 
   // Clear auto-scroll function
   const clearAutoScroll = useCallback(() => {
