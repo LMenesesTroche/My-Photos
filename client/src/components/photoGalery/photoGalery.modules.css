@@ -27,6 +27,8 @@
 
 .photo-item.dragging {
   border: 2px dashed #007bff; /* Ejemplo de borde para indicar arrastre */
+  background-color: rgba(0, 123, 255, 0.1); /* Fondo ligero para destacar el elemento arrastrado */
+  z-index: 1000; /* Asegúrate de que esté por encima de otros elementos */
 }
 
 .photo-item {

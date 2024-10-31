@@ -38,7 +38,7 @@ const DraggablePhoto = ({
   return (
     <div
       ref={isOwner ? (node) => drag(drop(node)) : null}
-      className="photo-item"
+      className={`photo-item ${isDragging ? 'dragging' : ''}`}
       style={{ opacity: isDragging ? 0.5 : 1 }}
     >
       <LazyLoadImage

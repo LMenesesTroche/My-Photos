@@ -14,6 +14,7 @@
 6.-Comodo al usuario (Responsive)
 9.- deploy
 
+boton de eliminar dentro del modal al abrir la imagen
 Agregar zoom en la galeria de imagenes
 agregar boton paraver como si no fueras el dueño
 Poder acomodar las imagenes
