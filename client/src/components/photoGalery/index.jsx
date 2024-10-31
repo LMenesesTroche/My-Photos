@@ -29,14 +29,11 @@ const DraggablePhoto = ({
     accept: ItemTypes.PHOTO,
     hover: (draggedItem) => {
       if (draggedItem.index !== index) {
-        setTimeout(() => {
-          movePhoto(draggedItem.index, index);
-          draggedItem.index = index;
-        }, 100); // Ajusta el tiempo de debounce según sea necesario
+        movePhoto(draggedItem.index, index);
+        draggedItem.index = index; // Actualiza el índice del elemento arrastrado
       }
     },
   });
-  
 
   return (
     <div
