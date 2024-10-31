@@ -1,4 +1,4 @@
 /*
 al editar si no le pones enviar lo que haya dentro del input se queda igual
-
+arreglar el boton de siguiente en la galeria de imagenes 
 */
