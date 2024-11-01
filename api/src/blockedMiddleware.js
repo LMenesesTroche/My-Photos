@@ -1,4 +1,4 @@
-const { user } = require("../src/db");
+const { user } = require("./db");
 
 const blockedMiddleware = async (req, res, next) => {
   const { auth0Id } = req.body;
