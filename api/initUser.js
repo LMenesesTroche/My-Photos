@@ -5,7 +5,7 @@ const DEFAULT_USER = {
   auth0Id: "google-oauth2|114723902309083514607",
   email: "lucasmenesestroche@gmail.com",
   name: "Lucas Meneses",
-  picture: "https://res.cloudinary.com/decbwosgj/image/upload/v1724859877/20240129-_DSC0003_jhqckq.jpg",
+  picture: "https://res.cloudinary.com/decbwosgj/image/upload/v1730477244/photos/h9pknfsr7q3nq00z2v4g.jpg",
   hasPaid: true, // Define hasPaid como true
 };
 

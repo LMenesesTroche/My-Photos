@@ -30,7 +30,7 @@ const deletePhoto = async ({ id_user, id_photo }) => {
   let cloudinaryPublicId;
   try {
     cloudinaryPublicId = findPhoto.highUrl.split("/upload/")[1].split("/").slice(1).join("/").split(".")[0];
-
+    console.log(cloudinaryPublicId);
   } catch (error) {
     console.error("Error extracting Cloudinary public_id:", error);
     throw new Error("Failed to extract Cloudinary public_id");

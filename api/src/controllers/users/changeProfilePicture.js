@@ -1,4 +1,4 @@
-const { user } = require("../../db.js");
+const { user } = require("../../db");
 const cloudinary = require("cloudinary").v2;
 
 cloudinary.config({
@@ -15,19 +15,23 @@ const updateProfilePicture = async ({ auth0Id, newUrl }) => {
   userFound.picture = newUrl; // Actualiza la URL con la nueva
   await userFound.save(); // Guarda los cambios en la base de datos
 
-  // Si no hay una URL de imagen previa, salta la eliminación
-  if (previousPictureUrl) {
+//https://res.cloudinary.com/decbwosgj/image/upload/v1730476915/photos/puqocjh5jpodvhpll4po.jpg
+  let cloudinaryPublicId;
+  if(previousPictureUrl){
     try {
-      // Extrae el public_id solo si `previousPictureUrl` tiene valor
-      const cloudinaryPublicId = previousPictureUrl
-        .split("/upload/")[1]
-        .split("/")[1]
-        .split(".")[0];
-
-      await cloudinary.uploader.destroy(cloudinaryPublicId);
+      cloudinaryPublicId = previousPictureUrl.split("/upload/")[1].split("/").slice(1).join("/").split(".")[0];
+      console.log(cloudinaryPublicId);
     } catch (error) {
-      console.error("Error extracting or deleting Cloudinary public_id:", error);
+      console.error("Error extracting Cloudinary public_id:", error);
+      throw new Error("Failed to extract Cloudinary public_id");
     }
+  }
+
+  try {
+    await cloudinary.uploader.destroy(cloudinaryPublicId);
+  } catch (error) {
+    console.error("Cloudinary deletion error:", error);
+    throw new Error("Failed to delete photo from Cloudinary");
   }
 
   return { message: "Success", picture: userFound.picture };

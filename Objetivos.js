@@ -14,6 +14,8 @@
 6.-Comodo al usuario (Responsive)
 9.- deploy
 
+!Al cambiar mi foto de perfil no se esta borrando la anterior foto 
+!Se bugea fatal al cambir de usuarios creo que es cosa del redux
 boton de eliminar dentro del modal al abrir la imagen
 Agregar zoom en la galeria de imagenes
 agregar boton paraver como si no fueras el dueño
