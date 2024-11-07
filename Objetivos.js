@@ -14,14 +14,15 @@
 6.-Comodo al usuario (Responsive)
 9.- deploy
 
-!Al cambiar mi foto de perfil no se esta borrando la anterior foto 
-!Se bugea fatal al cambir de usuarios creo que es cosa del redux
+!Se bugea fatal al cambir de usuarios creo que es cosa del redux (imagnes)
 boton de eliminar dentro del modal al abrir la imagen
 Agregar zoom en la galeria de imagenes
 agregar boton paraver como si no fueras el dueño
 Poder acomodar las imagenes
 Que el upload sea un modal ;)
+edewdedwdeewdwede
 Que el upload este en la pagina de perfil
 boton para copiar la direccion de tu portafolio 
-
+edewdedwdeewdwedeedewdedwdeewdwedeedewdedwdeewdwedeedewdedwdeewdwede
+edewdedwdeewdwedeedewdedwdeewdwedeedewdedwdeewdwedeedewdedwdeewdwede
 */
