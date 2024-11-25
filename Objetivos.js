@@ -12,8 +12,7 @@
 5.-Landing page (No mi usuario)
 7.- Muuuuy bonito
 6.-Comodo al usuario (Responsive)
-9.- deploy
-
+9.- deployr
 !Se bugea fatal al cambir de usuarios creo que es cosa del redux (imagnes)
 boton de eliminar dentro del modal al abrir la imagen
 Agregar zoom en la galeria de imagenes
